@@ -24,4 +24,5 @@ public class SkinFavorita {
     private String arma;
     @OneToMany(mappedBy="skinFavorita")
     private Set<Jogador> jogadores = new HashSet<>();
+
 }

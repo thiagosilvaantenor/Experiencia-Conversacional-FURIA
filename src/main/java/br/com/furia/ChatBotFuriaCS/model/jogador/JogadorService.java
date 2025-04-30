@@ -30,12 +30,7 @@ public class JogadorService {
 
     public Jogador salvar(Jogador jogador) {
         if (jogador != null) {
-            // TODO: FAZER UM DTO de Jogador para receber os dados de Mapa, RedesSociais e Skin e então criar a instância dessas classes
-            if (jogador.getRedesSociais() != null) {
-                RedesSociais redes = jogador.getRedesSociais();
-                redes.setJogador(jogador);
-                redesService.salvar(redes);
-            }
+
             if (jogador.getMapaFavorito() != null) {
                 MapaFavorito mapa = jogador.getMapaFavorito();
                 mapa.getJogadores().add(jogador);

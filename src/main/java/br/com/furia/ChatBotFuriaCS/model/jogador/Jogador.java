@@ -20,7 +20,7 @@ public class Jogador {
     private String nickName;
     private String nome;
     private int idade;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "redesSociais_id")
     private RedesSociais redesSociais;
     @ManyToOne

@@ -19,4 +19,8 @@ public class MapaFavorito {
     private String nome;
     @OneToMany(mappedBy = "mapaFavorito")
     private Set<Jogador> jogadores = new HashSet<>();
+
+    public MapaFavorito(String nomeMapa) {
+        this.nome = nomeMapa;
+    }
 }

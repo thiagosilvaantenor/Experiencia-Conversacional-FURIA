@@ -13,6 +13,7 @@ import lombok.*;
 public class RedesSociais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "redesSociais_id")
     private Integer id;
     private String twitch;
     private String instagram;

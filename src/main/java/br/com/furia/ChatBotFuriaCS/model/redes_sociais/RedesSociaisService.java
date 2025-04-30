@@ -13,7 +13,7 @@ public class RedesSociaisService {
 
     public RedesSociais salvar(RedesSociais redesSociais){
         if (redesSociais != null) {
-            return  repository.save(redesSociais);
+            return repository.save(redesSociais);
         }
         return null;
     }
