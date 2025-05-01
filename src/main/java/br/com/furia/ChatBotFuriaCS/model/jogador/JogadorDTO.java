@@ -1,9 +1,11 @@
 package br.com.furia.ChatBotFuriaCS.model.jogador;
 
+import java.time.LocalDate;
+
 public record JogadorDTO(
         String nickName,
         String nome,
-        int idade,
+        LocalDate nascimento,
         // Redes sociais
         String twitch,
         String instagram,

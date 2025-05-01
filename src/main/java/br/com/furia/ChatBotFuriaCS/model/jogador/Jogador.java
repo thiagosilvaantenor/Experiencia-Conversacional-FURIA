@@ -7,6 +7,8 @@ import br.com.furia.ChatBotFuriaCS.model.skin_favorita.SkinFavorita;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity(name = "jogador")
 @Table(name = "jogador")
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class Jogador {
     @Column(name = "nick_name")
     private String nickName;
     private String nome;
-    private int idade;
+    private LocalDate nascimento;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "redesSociais_id")
     private RedesSociais redesSociais;

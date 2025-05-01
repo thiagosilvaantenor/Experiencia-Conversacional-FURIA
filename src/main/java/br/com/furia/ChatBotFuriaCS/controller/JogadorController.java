@@ -37,7 +37,7 @@ public class JogadorController {
         skin.setNome(jogador.nomeSkin());
         skin.setArma(jogador.arma());
 
-        Jogador novo = new Jogador(jogador.nickName(), jogador.nome(), jogador.idade(), redes, mapa, skin);
+        Jogador novo = new Jogador(jogador.nickName(), jogador.nome(), jogador.nascimento(), redes, mapa, skin);
 
         redes.setJogador(novo);
         skin.getJogadores().add(novo);
@@ -58,7 +58,7 @@ public class JogadorController {
         List<Jogador> jogadores = service.buscarTodos();
         List<JogadorDTO> jogadorDTOS = new ArrayList<>();
         jogadores.forEach( jogador -> {
-                 jogadorDTOS.add(new JogadorDTO(jogador.getNickName(), jogador.getNome(), jogador.getIdade(),
+                 jogadorDTOS.add(new JogadorDTO(jogador.getNickName(), jogador.getNome(), jogador.getNascimento(),
                          jogador.getRedesSociais().getTwitch(), jogador.getRedesSociais().getInstagram(), jogador.getRedesSociais().getYoutube(),
                          jogador.getMapaFavorito().getNome(),
                          jogador.getSkinFavorita().getNome(), jogador.getSkinFavorita().getArma())
@@ -71,7 +71,7 @@ public class JogadorController {
         Optional<Jogador> jogador = service.buscarPeloId(nickName);
         if (jogador.isPresent()){
             Jogador buffer = jogador.get();
-            return ResponseEntity.ok(new JogadorDTO(buffer.getNickName(), buffer.getNome(), buffer.getIdade(),
+            return ResponseEntity.ok(new JogadorDTO(buffer.getNickName(), buffer.getNome(), buffer.getNascimento(),
                     buffer.getRedesSociais().getTwitch(), buffer.getRedesSociais().getInstagram(), buffer.getRedesSociais().getYoutube(),
                     buffer.getMapaFavorito().getNome(),
                     buffer.getSkinFavorita().getNome(), buffer.getSkinFavorita().getArma()));
