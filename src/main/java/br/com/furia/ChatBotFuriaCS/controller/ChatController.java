@@ -2,11 +2,14 @@ package br.com.furia.ChatBotFuriaCS.controller;
 
 import br.com.furia.ChatBotFuriaCS.model.jogador.Jogador;
 import br.com.furia.ChatBotFuriaCS.model.jogador.JogadorService;
+import br.com.furia.ChatBotFuriaCS.model.sugestao.Sugestao;
+import br.com.furia.ChatBotFuriaCS.model.sugestao.SugestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/chat")
@@ -14,6 +17,9 @@ import java.util.List;
 public class ChatController {
     @Autowired
     private JogadorService jogadorService;
+
+    @Autowired
+    private SugestaoService sugestaoService;
 
     @GetMapping
     public ResponseEntity<String> exibeMenu(){
@@ -24,21 +30,22 @@ public class ChatController {
 
 
     @PostMapping
-    public ResponseEntity<String> chat(@RequestBody String mensagem) throws Exception {
-        String response = gerarResposta(mensagem);
+    public ResponseEntity<String> chat(@RequestBody Map<String, String> mensagem) throws Exception {
+        String opcao = mensagem.get("opcao");
+        String response = gerarResposta(opcao, mensagem);
         return ResponseEntity.ok(response);
     }
 
-    private String gerarResposta(String mensagem) throws Exception {
+    private String gerarResposta(String opcao, Map<String,String> dados) throws Exception {
 
-        mensagem = mensagem.trim();
+        opcao = opcao.trim();
         // TO FIX: Mensagem chega null mas não é acionado o menu
-        if (mensagem.isEmpty() || mensagem == null) {
+        if (opcao.isEmpty()) {
            exibeMenu();
         }
         List<Jogador> jogadores;
         StringBuilder builder;
-        switch (mensagem) {
+        switch (opcao) {
             case "1":
                 TwitchAPIController api = new TwitchAPIController();
                 builder = new StringBuilder();
@@ -98,8 +105,13 @@ public class ChatController {
                 }
                 return builder.toString();
             case "4":
-            //TODO: criar a suguestão aqui ou no /suguestoes?
+                Sugestao sugestao = new Sugestao();
+                sugestao.setTipo(dados.get("tipo"));
+                sugestao.setDescricao(dados.get("descricao"));
+                sugestao.setEmailUsuario(dados.get("emailUsuario"));
 
+                sugestaoService.salvar(sugestao);
+                return "Sugestão recebida com sucesso! Obrigado pela sua contribuição";
             default:
                 return "Opção invalida";
         }

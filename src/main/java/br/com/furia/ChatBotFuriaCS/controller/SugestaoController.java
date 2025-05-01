@@ -17,14 +17,6 @@ public class SugestaoController {
     @Autowired
     private SugestaoService service;
 
-    @PostMapping
-    public ResponseEntity<Sugestao> criarSugestao(@RequestBody Sugestao sugestao){
-        System.out.println("Recebido: tipo=" + sugestao.getTipo()
-                + ", descricao=" + sugestao.getDescricao()
-                + ", email=" + sugestao.getEmailUsuario());
-        Sugestao nova = service.salvar(sugestao);
-        return  ResponseEntity.ok(nova);
-    }
     @GetMapping
     public ResponseEntity<List<Sugestao>> listarTodas() {
         return ResponseEntity.ok(service.buscaTodas());
