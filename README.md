@@ -13,6 +13,8 @@
   - DevTools
   - Spring Web
   - MySQLDriver
+- APIs Externas
+  - [Twitch API](https://dev.twitch.tv/docs/api/)
  
 
 # Para Rodar:
