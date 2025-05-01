@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,15 +54,27 @@ public class JogadorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Jogador>> listarTodos() {
+    public ResponseEntity<List<JogadorDTO>> listarTodos() {
         List<Jogador> jogadores = service.buscarTodos();
-        return ResponseEntity.ok(jogadores);
+        List<JogadorDTO> jogadorDTOS = new ArrayList<>();
+        jogadores.forEach( jogador -> {
+                 jogadorDTOS.add(new JogadorDTO(jogador.getNickName(), jogador.getNome(), jogador.getIdade(),
+                         jogador.getRedesSociais().getTwitch(), jogador.getRedesSociais().getInstagram(), jogador.getRedesSociais().getYoutube(),
+                         jogador.getMapaFavorito().getNome(),
+                         jogador.getSkinFavorita().getNome(), jogador.getSkinFavorita().getArma())
+                 );
+                });
+        return ResponseEntity.ok(jogadorDTOS);
     }
     @GetMapping("/{nickName}")
-    public ResponseEntity<Jogador> exibirJogador(@PathVariable String nickName) {
+    public ResponseEntity<JogadorDTO> exibirJogador(@PathVariable String nickName) {
         Optional<Jogador> jogador = service.buscarPeloId(nickName);
         if (jogador.isPresent()){
-            return ResponseEntity.ok(jogador.get());
+            Jogador buffer = jogador.get();
+            return ResponseEntity.ok(new JogadorDTO(buffer.getNickName(), buffer.getNome(), buffer.getIdade(),
+                    buffer.getRedesSociais().getTwitch(), buffer.getRedesSociais().getInstagram(), buffer.getRedesSociais().getYoutube(),
+                    buffer.getMapaFavorito().getNome(),
+                    buffer.getSkinFavorita().getNome(), buffer.getSkinFavorita().getArma()));
         }
         return ResponseEntity.notFound().build();
     }

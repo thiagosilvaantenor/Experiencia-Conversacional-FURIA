@@ -54,4 +54,5 @@ public class JogadorService {
     public Optional<Jogador> buscarPeloId(String nickName) {
         return repository.findById(nickName);
     }
+
 }

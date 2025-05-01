@@ -1,14 +1,23 @@
 package br.com.furia.ChatBotFuriaCS.controller;
 
+import br.com.furia.ChatBotFuriaCS.model.jogador.Jogador;
+import br.com.furia.ChatBotFuriaCS.model.jogador.JogadorService;
+import br.com.furia.ChatBotFuriaCS.model.mapa_favorito.MapaFavorito;
+import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociais;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @RestController
 @RequestMapping("/chat")
 @CrossOrigin(origins = "*")
 public class ChatController {
+    @Autowired
+    private JogadorService jogadorService;
 
     @GetMapping
     public ResponseEntity<String> exibeMenu(){
@@ -31,14 +40,40 @@ public class ChatController {
         if (mensagem.isEmpty() || mensagem == null) {
            exibeMenu();
         }
-
+        List<Jogador> jogadores;
+        StringBuilder builder;
         switch (mensagem) {
             case "1":
-                return "Oi! Como posso te ajudar hoje?";
+                return "Essa função ainda vai ser implementada";
             case "2":
-                return "Tchau Volte Sempre";
+                //TODO: REVER LÓGICA E RELACIONAMENTO ENTRE JOGADOR E REDES
+                jogadores = jogadorService.buscarTodos();
+                builder = new StringBuilder();
+
+                jogadores.forEach( jogador -> {
+                    builder.append(jogador.getNickName()).append(":\n");
+                    builder.append("Twitch: ").append(jogador.getRedesSociais().getTwitch());
+                    builder.append("\nYoutube: ").append(jogador.getRedesSociais().getYoutube());
+                    builder.append("\nInstagram: ").append(jogador.getRedesSociais().getInstagram());
+                    builder.append("\n-------------");
+                    }
+                );
+                return builder.toString();
+
             case "3":
-                return "Claro! Em que posso ajudar?";
+                jogadores = jogadorService.buscarTodos();
+                builder = new StringBuilder();
+                for (Jogador jogador : jogadores) {
+                    builder.append(jogador.getNickName()).append(":\n");
+                    builder.append(jogador.getMapaFavorito().getNome()).append("\n");
+                    builder.append(jogador.getSkinFavorita().getNome()).append("\n");
+                    builder.append(jogador.getSkinFavorita().getArma());
+                    builder.append("\n-------------");
+                }
+                return builder.toString();
+            case "4":
+            //TODO: criar a suguestão aqui ou no /suguestoes?
+
             default:
                 return "Opção invalida";
         }
