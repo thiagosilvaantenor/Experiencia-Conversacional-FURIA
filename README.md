@@ -26,4 +26,5 @@ O que já esta pronto:
 
 BackEnd:
 
-- Cadastro e listagem de Sugestão em `/sugestoes` 
+- Cadastro e listagem de Sugestão em `/sugestoes`
+- Cadastro e listagem de Jogador em `/jogador/`
