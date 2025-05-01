@@ -16,8 +16,16 @@
  
 
 # Para Rodar:
-Necessário configurar portas, usuario e senha no [`application.propperties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/src/main/resources/application.properties)
-<br> Necessário [Maven](https://maven.apache.org/) e uma IDE de sua preferencia para rodar, para testar o back end utilizar Postman ou Insomnia
+Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven.
+Vai ser necessário atualizar informações do [`/src/main/resources/application.propperties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/src/main/resources/application.properties)
+
+Para usuario e senha do banco de dados, nas linhas 4 e 5: 
+
+![image](https://github.com/user-attachments/assets/b8508388-c9ac-4f99-a195-b09aa476709a)
+
+Também vai ser necessário colocar o número da porta do MySQL na linha 3, troque o `3306` pela porta em que esta o seu MySQL ![image](https://github.com/user-attachments/assets/be0bb536-0e35-4edf-9148-0defdb757684)
+<br> Pronto, pode rodar o projeto!<br>
+Caso queira testar o backend utilize Postman ou Insomnia.
 
 # Status
 🚧Em construção🚧
