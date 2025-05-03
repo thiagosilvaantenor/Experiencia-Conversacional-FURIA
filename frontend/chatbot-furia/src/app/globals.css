@@ -4,6 +4,13 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+@layer base {
+
+  .text-stro {
+    -webkit-text-stroke: 1px black;
+  }
+}
+
 
 @theme inline {
   --color-background: var(--background);
@@ -12,15 +19,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  background-image: url('/furia-wallpaper.png');
+  background-size:cover;
+  background-repeat: no-repeat;
 }
