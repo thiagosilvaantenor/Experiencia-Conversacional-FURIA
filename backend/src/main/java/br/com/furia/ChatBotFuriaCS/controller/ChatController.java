@@ -109,7 +109,9 @@ public class ChatController {
                 jogador -> {
                     Map<String, String> info = new HashMap<>();
                     info.put("jogador",jogador.getNickName());
-                    info.put("canal",jogador.getRedesSociais().getTwitch());
+                    info.put("twitch",jogador.getRedesSociais().getTwitch());
+                    info.put("instagram",jogador.getRedesSociais().getInstagram());
+                    info.put("youtube",jogador.getRedesSociais().getYoutube());
                     return info;
                 }).collect(Collectors.toList());
         return canais;
