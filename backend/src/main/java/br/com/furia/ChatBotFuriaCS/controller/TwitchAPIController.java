@@ -5,23 +5,48 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import java.time.Instant;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class TwitchAPIController {
-    private final String TOKEN = "nw5csmi2mljxy77spfc8m7buif5wso";
-    private final String CLIENT_ID = "n4y6auo1jq9axiwfs8yw3ldeuvslis";
+    //private final String TOKEN = "nw5csmi2mljxy77spfc8m7buif5wso";
+//    @Value("${twitch.client-id}")
+    private String clientId = "";
+
+//    @Value("${twitch.client-secret}")
+    private String clientSecret = "";
+
+    private String token = "";
+    private Instant expiraEm;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    public TwitchAPIController(
+            @Value("${twitch.client-id}") String clientId,
+            @Value("${twitch.client-secret}") String clientSecret
+    ) {
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+    }
 
 
-    public String buscaDados(String canal) {
+    public String buscaDados(String canal) throws Exception {
+
+        if (this.token == null || this.expiraEm == null || Instant.now().isAfter(this.expiraEm)) {
+            renovarToken();
+        }
+
         final String URL = "https://api.twitch.tv/helix/streams?user_login=" + canal;
 
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Client-ID", CLIENT_ID);
-        headers.set("Authorization", "Bearer " + TOKEN);
+        headers.set("Client-ID", clientId);
+        headers.set("Authorization", "Bearer " + token);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(URL, HttpMethod.GET, entity, String.class);
 
         return response.getBody();
@@ -38,6 +63,25 @@ public class TwitchAPIController {
             } else{
                 return null;
             }
+    }
+
+     private void renovarToken() throws Exception {
+        String url = "https://id.twitch.tv/oauth2/token"
+                + "?client_id=" + clientId
+                + "&client_secret=" + clientSecret
+                + "&grant_type=client_credentials";
+
+        ResponseEntity<String> response = restTemplate.postForEntity(url, null, String.class);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            JsonNode json = mapper.readTree(response.getBody());
+            this.token = json.path("access_token").asText();
+            int expiresIn = json.path("expires_in").asInt();
+            // margem de segurança de 1 min
+            this.expiraEm = Instant.now().plusSeconds(expiresIn - 60);
+        } else {
+            throw new RuntimeException("Erro ao obter token da Twitch: " + response.getStatusCode());
+        }
     }
 
 }

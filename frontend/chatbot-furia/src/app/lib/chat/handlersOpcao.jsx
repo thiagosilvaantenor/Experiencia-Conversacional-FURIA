@@ -5,9 +5,9 @@ export const handleOpcao1 = (dados, setMensagens, setCarregando) => {
     setTimeout(() => {
       setCarregando(false)
       dados.emLive.forEach(jogador => {
-        const { link } = extrairTextoELink(jogador.twitch)
+        const { link } = extrairTextoELink(jogador.canal)
         setMensagens(prev => [...prev, {
-          texto: `${jogador.jogador} está em live agora 🔥🔥 jogando ${jogador.jogando}.\nAssista em`,
+          texto: `${jogador.jogador} está em live agora 🔥🔥 jogando:\n${jogador.jogando}.\nAssista em:`,
           link,
           remetente: "bot",
         }])
@@ -30,17 +30,35 @@ export const handleOpcao1 = (dados, setMensagens, setCarregando) => {
 }
 
 export const handleOpcao2 = (dados, setMensagens, setCarregando) => {
+		
   dados.canais.forEach(canal => {
-    ["twitch", "youtube", "instagram"].forEach((rede, i) => {
+    //Link twitch
       setTimeout(() => {
         setMensagens(prev => [...prev, {
-          texto: `Jogador: ${canal.jogador}\nCanal ${rede.charAt(0).toUpperCase() + rede.slice(1)}:`,
-          link: extrairTextoELink(canal[rede]).link,
+          texto: `Jogador: ${canal.jogador}\nCanal da Twitch 🎮 :`,
+          link: extrairTextoELink(canal.twitch).link,
           remetente: "bot"
         }])
         setCarregando(false)
-      }, 500 * (i + 1))
-    })
+      }, 500)
+    //Link youtube
+    setTimeout(() => {
+      setMensagens(prev => [...prev, {
+        texto: `Jogador: ${canal.jogador}\nCanal da Youtube ▶ :`,
+        link: extrairTextoELink(canal.youtube).link,
+        remetente: "bot"
+      }])
+      setCarregando(false)
+    }, 500)
+    //Link instagram
+    setTimeout(() => {
+      setMensagens(prev => [...prev, {
+        texto: `Jogador: ${canal.jogador}\nCanal da Instagram 📸 :`,
+        link: extrairTextoELink(canal.instagram).link,
+        remetente: "bot"
+      }])
+      setCarregando(false)
+    }, 500)
   })
 }
 

@@ -24,6 +24,10 @@ public class ChatController {
     @Autowired
     private SugestaoService sugestaoService;
 
+    @Autowired
+    private TwitchAPIController api;
+
+
     @GetMapping
     public ResponseEntity<HashMap<String,String>> exibeMenu(){
         HashMap<String,String> menu = new HashMap<>();
@@ -75,7 +79,7 @@ public class ChatController {
     }
 
     private List<Map<String, String>> buscaJogadoresEmLive() throws Exception {
-        TwitchAPIController api = new TwitchAPIController();
+
         List<Jogador> jogadores = jogadorService.buscarTodos();
         List<Map<String,String>> jogadoresEmLive = new ArrayList<>();
         for (Jogador jogador : jogadores) {
