@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/chat")
@@ -22,99 +25,119 @@ public class ChatController {
     private SugestaoService sugestaoService;
 
     @GetMapping
-    public ResponseEntity<String> exibeMenu(){
-        String menu = "Seja bem vindo(a) ao Chat do time de Counter Strike da Furia, escolha uma das opções:\n"
-                + "1 - Jogadores que estão em live agora\n" + "2 - Redes sociais dos jogadores\n" + "3 - Mapas e skins favoritas dos jogadores\n" + "4 - Mandar uma suguestão para o chat";
+    public ResponseEntity<HashMap<String,String>> exibeMenu(){
+        HashMap<String,String> menu = new HashMap<>();
+        menu.put("1", "Jogadores que estão em live agora");
+        menu.put("2","Redes sociais dos jogadores");
+        menu.put("3","Mapas e skins favoritas dos jogadores");
+        menu.put("4","Mandar uma suguestão para o chat");
         return  ResponseEntity.ok(menu);
     }
 
 
     @PostMapping
-    public ResponseEntity<String> chat(@RequestBody Map<String, String> mensagem) throws Exception {
+    public ResponseEntity<HashMap<String,Object>> chat(@RequestBody Map<String, String> mensagem) throws Exception {
         String opcao = mensagem.get("opcao");
-        String response = gerarResposta(opcao, mensagem);
+        HashMap<String,Object> response = gerarResposta(opcao, mensagem);
         return ResponseEntity.ok(response);
     }
 
-    private String gerarResposta(String opcao, Map<String,String> dados) throws Exception {
+    private HashMap<String,Object> gerarResposta(String opcao, Map<String,String> dados) throws Exception {
+        HashMap<String, Object> resposta = new HashMap<>();
 
-        opcao = opcao.trim();
-        // TO FIX: Mensagem chega null mas não é acionado o menu
-        if (opcao.isEmpty()) {
-           exibeMenu();
-        }
-        List<Jogador> jogadores;
-        StringBuilder builder;
         switch (opcao) {
             case "1":
-                TwitchAPIController api = new TwitchAPIController();
-                builder = new StringBuilder();
-                jogadores = jogadorService.buscarTodos();
-                for (Jogador jogadore : jogadores) {
-                    String[] twitch = jogadore.getRedesSociais().getTwitch().split("/");
-                    String canal = twitch[twitch.length - 1];
-                    String json = api.buscaDados(canal);
-
-                    if (json != null) {
-                        try {
-                            String resultado = api.verificarLiveEJogo(json);
-                            if (resultado != null) {
-                                builder.append("Jogador: ").append(jogadore.getNickName()).append(" está AO VIVO\n");
-                                builder.append("Jogando: ").append(resultado).append("\n");
-                                builder.append(jogadore.getRedesSociais().getTwitch()).append("\n");
-                            }
-                        } catch (Exception e) {
-                            throw new Exception("Erro ao processar resposta da Twitch");
-                        }
-                    }
-                }
+                List<Map<String, String>> jogadoresEmLive = buscaJogadoresEmLive();
                 //Caso nenhum jogador estiver em Live, mostra o link dos canais de cada um
-                if (builder.isEmpty()){
-                    builder.append("Nenhum dos jogodores está em live agora\n");
-                    jogadores.forEach(jogador -> {
-                        builder.append(jogador.getNickName())
-                                .append(" canal: ").append(jogador.getRedesSociais().getTwitch())
-                                .append("\n");
-                    } );
+                if (jogadoresEmLive.isEmpty()){
+                    resposta.put("mensagem", "Nenhum dos jogadores está em live agora.");
+                    resposta.put("canais", buscaJogadoresERedesSociais());
+                }else{
+                    resposta.put("emLive", jogadoresEmLive);
                 }
-                return  builder.toString();
+                return resposta;
 
             case "2":
-                jogadores = jogadorService.buscarTodos();
-                builder = new StringBuilder();
-
-                jogadores.forEach( jogador -> {
-                    builder.append(jogador.getNickName()).append(":\n");
-                    builder.append("Twitch: ").append(jogador.getRedesSociais().getTwitch());
-                    builder.append("\nYoutube: ").append(jogador.getRedesSociais().getYoutube());
-                    builder.append("\nInstagram: ").append(jogador.getRedesSociais().getInstagram());
-                    builder.append("\n-------------\n");
-                    }
-                );
-                return builder.toString();
+                resposta.put("canais", buscaJogadoresERedesSociais());
+                return resposta;
 
             case "3":
-                jogadores = jogadorService.buscarTodos();
-                builder = new StringBuilder();
-                for (Jogador jogador : jogadores) {
-                    builder.append(jogador.getNickName()).append(":\n");
-                    builder.append(jogador.getMapaFavorito().getNome()).append("\n");
-                    builder.append(jogador.getSkinFavorita().getNome()).append("\n");
-                    builder.append(jogador.getSkinFavorita().getArma());
-                    builder.append("\n-------------\n");
-                }
-                return builder.toString();
+                resposta.put("skins&mapas",buscaJogadoresSkinEMapa());
+                return resposta;
             case "4":
-                Sugestao sugestao = new Sugestao();
-                sugestao.setTipo(dados.get("tipo"));
-                sugestao.setDescricao(dados.get("descricao"));
-                sugestao.setEmailUsuario(dados.get("emailUsuario"));
-
-                sugestaoService.salvar(sugestao);
-                return "Sugestão recebida com sucesso! Obrigado pela sua contribuição";
+                criarSugestao(dados);
+                resposta.put("mensagem","Sugestão cadastrada com sucesso");
+                return resposta;
             default:
-                return "Opção invalida";
+                resposta.put("mensagem", "Opção invalida");
+                return resposta;
         }
     }
 
+    private List<Map<String, String>> buscaJogadoresEmLive() throws Exception {
+        TwitchAPIController api = new TwitchAPIController();
+        List<Jogador> jogadores = jogadorService.buscarTodos();
+        List<Map<String,String>> jogadoresEmLive = new ArrayList<>();
+        for (Jogador jogador : jogadores) {
+            String[] twitch = jogador.getRedesSociais().getTwitch().split("/");
+            String canal = twitch[twitch.length - 1];
+            String json = api.buscaDados(canal);
+
+            if (json != null) {
+                try {
+                    String resultado = api.verificarLiveEJogo(json);
+                    if (resultado != null) {
+                        //Cria um Map pra cada jogador que esteja em live
+                        Map<String, String> dadosJogador = new HashMap<>();
+                        dadosJogador.put("jogador", jogador.getNickName());
+                        dadosJogador.put("jogando", resultado);
+                        dadosJogador.put("canal", jogador.getRedesSociais().getTwitch());
+                        jogadoresEmLive.add(dadosJogador);
+                    }
+                } catch (Exception e) {
+                    throw new Exception("Erro ao processar resposta da Twitch");
+                }
+            }
+
+        }
+        return jogadoresEmLive;
+    }
+
+    private List<Map<String, String>> buscaJogadoresERedesSociais() {
+        List<Jogador> jogadores = jogadorService.buscarTodos();
+        List<Map<String, String>> canais = jogadores.stream().map(
+                jogador -> {
+                    Map<String, String> info = new HashMap<>();
+                    info.put("jogador",jogador.getNickName());
+                    info.put("canal",jogador.getRedesSociais().getTwitch());
+                    return info;
+                }).collect(Collectors.toList());
+        return canais;
+    }
+
+    private List<Map<String,String>> buscaJogadoresSkinEMapa() {
+
+        List<Jogador> jogadores = jogadorService.buscarTodos();
+        List<Map<String,String>> dados = jogadores.stream().map( jogador ->{
+            Map<String,String> info = new HashMap<>();
+            info.put("jogador", jogador.getNickName());
+            info.put("mapaFavorito", jogador.getMapaFavorito().getNome());
+            info.put("skinNome",jogador.getSkinFavorita().getNome());
+            info.put("skinArma",jogador.getSkinFavorita().getArma());
+            return info;
+        }).collect(Collectors.toList());
+
+        return dados;
+    }
+
+    private Sugestao criarSugestao(Map<String,String> dados){
+        Sugestao sugestao = new Sugestao();
+        sugestao.setTipo(dados.get("tipo"));
+        sugestao.setDescricao(dados.get("descricao"));
+        sugestao.setEmailUsuario(dados.get("emailUsuario"));
+
+        Sugestao salva = sugestaoService.salvar(sugestao);
+
+        return salva;
+    }
 }
