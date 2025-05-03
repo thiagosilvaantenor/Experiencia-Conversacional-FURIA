@@ -7,38 +7,52 @@
   <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
   <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
   <img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+ 	<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+
 </div>
 
-# Tecnologias
-- Linguagem: Java
+# Tecnologias 🛠
+- Linguagens: Java em BackEnd, Javascript em FrontEnd
 - Banco de dados relacional: MySQL
 - ORM: Hibernate
-- FrameWork e Dependências: Spring
-  
-  - [Data JPA](https://spring.io/projects/spring-data-jpa)
-  - [Lombok](https://projectlombok.org/)
-  - [DevTools](https://docs.spring.io/spring-boot/reference/using/devtools.html)
-  - [Spring Web](https://mvnrepository.com/artifact/org.springframework/spring-web)
-  - [MySQLDriver](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j)
+- FrameWork e Dependências:
+  - BackEnd em [Spring](https://spring.io/)
+    - [Data JPA](https://spring.io/projects/spring-data-jpa)
+    - [Lombok](https://projectlombok.org/)
+    - [DevTools](https://docs.spring.io/spring-boot/reference/using/devtools.html)
+    - [Spring Web](https://mvnrepository.com/artifact/org.springframework/spring-web)
+    - [MySQLDriver](https://mvnrepository.com/artifact/com.mysql/mysql-connector-j)
+  - FrontEnd com [NextJs](https://nextjs.org/):
+    - [React](https://react.dev/)
+    - [TaillWindCSS](https://tailwindcss.com/)
 - APIs Externas
   - [Twitch API](https://dev.twitch.tv/docs/api/)
  
 
 # Para Rodar:
-Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven.
-Vai ser necessário atualizar informações do [`/src/main/resources/application.propperties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/src/main/resources/application.properties)
+BackEnd:
+  Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven.
+  Vai ser necessário atualizar informações do [`/src/main/resources/application.propperties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/src/main/resources/application.properties)
+  
+  Para usuario e senha do banco de dados, nas linhas 4 e 5, foi utilizado de variaveis de ambiente com os valores de usuario(`DB_USER`) e senha(`DB_PASSWORD`) do banco, portanto será necessário criar essas variaveis: 
+  
+  ![image](https://github.com/user-attachments/assets/b8508388-c9ac-4f99-a195-b09aa476709a)
+  
+  Também vai ser necessário colocar o número da porta do MySQL na linha 3, troque o `3306` pela porta em que esta o seu MySQL, nessa mesma linha garante que a database `chatfuriacs` seja criada ao rodar o projeto
+  
+  ![image](https://github.com/user-attachments/assets/be0bb536-0e35-4edf-9148-0defdb757684)
+  
+  Pronto, pode rodar o projeto!<br>
+  Caso queira testar o backend utilize Postman ou Insomnia.
+FrontEnd:
+Após configurar o backend, para rodar será necessario ter o Node instalado, abra um terminal, que reconheça os comandos do node, no diretório [`main/resources/frontend/chatbot-furia`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/src/main/resources/frontend/chatbot-furia) e use os seguintes comandos:
 
-Para usuario e senha do banco de dados, nas linhas 4 e 5, foi utilizado de variaveis de ambiente com os valores de usuario(`DB_USER`) e senha(`DB_PASSWORD`) do banco, portanto será necessário criar essas variaveis: 
-
-![image](https://github.com/user-attachments/assets/b8508388-c9ac-4f99-a195-b09aa476709a)
-
-Também vai ser necessário colocar o número da porta do MySQL na linha 3, troque o `3306` pela porta em que esta o seu MySQL, nessa mesma linha garante que a database `chatfuriacs` seja criada ao rodar o projeto
-
-![image](https://github.com/user-attachments/assets/be0bb536-0e35-4edf-9148-0defdb757684)
-
-Pronto, pode rodar o projeto!<br>
-Caso queira testar o backend utilize Postman ou Insomnia.
-
+- `npm install`
+- `npm run dev`
+No mesmo terminal será informado em qual porta o frontend está rodando, normalmente o NextJs roda em `http://localhost:3000`, para testar o chat bot acrescente o `/chat` após o número da porta, ex: `http://localhost:3000/chat`
+ 
 # Status
 🚧Em construção🚧
 
@@ -71,3 +85,14 @@ BackEnd:
     `"nomeMapa": "nome do mapa favorito do jogador, ex: DUST 2",` <br>
     `"nomeSkin": "nome da skin favorita do jogador, ex: The Dark Knight",` <br>
     `"arma": "nome da arma que pertence a skin favorita do jogador, ex: SSG 08"` <br> `} `
+  - PUT (`/nickName`) Colocar no body os atributos que deseja atualizar do jogador, com a exceção do `nickname` pois é o primaryKey dele, exemplo: `{` <br>
+     `"nome": "nome novo"` <br>
+      `"nascimento": "nova data de nascimento do jogador, em YYYY-MM-DD ex: 1991-05-30",` <br>
+      `"twitch": "novo link do canal da twitch do jogador, ex: https://www.twitch.tv/gafallen",` <br>
+      `]`
+
+    FrontEnd:
+      - Interação com o chatbot em `localhost:3000/chat`, falta CSS e tratamento de dados da API
+  ![image](https://github.com/user-attachments/assets/90eed981-2e3f-4754-9db3-8625ce5e5ac7)
+
+
