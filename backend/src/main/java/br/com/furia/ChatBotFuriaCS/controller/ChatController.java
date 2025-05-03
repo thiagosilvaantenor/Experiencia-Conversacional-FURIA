@@ -62,7 +62,7 @@ public class ChatController {
                 return resposta;
 
             case "3":
-                resposta.put("skins&mapas",buscaJogadoresSkinEMapa());
+                resposta.put("skins_mapas",buscaJogadoresSkinEMapa());
                 return resposta;
             case "4":
                 criarSugestao(dados);
