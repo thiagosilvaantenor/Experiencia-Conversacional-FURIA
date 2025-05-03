@@ -67,8 +67,7 @@ export default function ChatForm() {
     //Altera o estado de carregando para exibir para o usuário
     setCarregando(true);
 
-    // Se for a opção 4, apenas mostra o input, sem enviar nada
-    if (valor === '4') return;
+    
 
     // Se for qualquer outra opção, cria o json para a requisição o valor da opção escolhida
     const payload = { opcao: valor }
@@ -84,12 +83,16 @@ export default function ChatForm() {
    switch(valor){
     case "1":
       verificaLive(dados);
-      setCarregando(false);
       break;
     case "2":
       retornaRedesSociais(dados);
-      setCarregando(false);
       break;
+    case "3":
+      retornaSkinMapa(dados);
+      break;
+    case "4":
+      // Se for a opção 4, apenas mostra o input, sem enviar nada
+      return;
     default:
       // Para outras opções, simplesmente mostra a mensagem
       setCarregando(false);
@@ -98,11 +101,13 @@ export default function ChatForm() {
     
   }
 
-  //Caso opção tenha valor = 1
+   //caso seja escolhida a opção 1
   const verificaLive = (dados) => {
-    //Recebe o json(data) e verifica se alguem está emLive
+    //Recebe o json(dados) e verifica se alguem está emLive
     if (dados.emLive) {
-      dados.emLive.forEach(jogador => {
+      setTimeout(() => {
+        setCarregando(false); 
+        dados.emLive.forEach(jogador => {
         setMensagens(prev => [
           ...prev,
           {
@@ -110,6 +115,7 @@ export default function ChatForm() {
             remetente: "bot",   
           }
         ]);
+      }, 1000);
       });
     }//Caso ninguem estiver emLive, exibe que ninguem está em live e o canal da twitch dos jogadores
     else{
@@ -118,7 +124,9 @@ export default function ChatForm() {
         {
           texto:dados.mensagem, remetente: "bot"
         }
-      ]);
+    ]);
+    setTimeout(() => {
+      setCarregando(false); 
       dados.canais.forEach(canal => {
         setMensagens( prev => [
         ...prev, {
@@ -126,27 +134,47 @@ export default function ChatForm() {
           remetente: "bot"
         }
       ]);
+    }, 500);
     });
   } 
   }
-
+ //Caso seja escolhida a opção 2
   const retornaRedesSociais = (dados) => {
-      //Recebe o json(data) e retorna as redes sociais dos jogadores
+      //Recebe o json(dados) e retorna as redes sociais dos jogadores
       dados.canais.forEach(canal => {
+        setTimeout(() => {
+          setCarregando(false); 
           setMensagens( prev => [
             ...prev, {
               texto: `Jogador: ${canal.jogador}\nCanal da Twitch 🎮:\n${canal.twitch}\nCanal do Youtube ▶:\n${canal.youtube}\nInstagram 📸:\n${canal.instagram}`,
               remetente: "bot"
             }
           ])
-      })
+        }, 1000);
+      });
   }
 
+ //caso seja escolhida a opção 3
+  const retornaSkinMapa = (dados) => {
+    //Extrai do Json(dados) os dados de skin e Mapa favoritos de cada jogador
+    
+    dados.skins_mapas.forEach(item => {
+    setTimeout(() => {
+      setCarregando(false);
+      setMensagens( prev => [
+        ...prev, {
+          texto: `Jogador: ${item.jogador}\nSkinFavorita⭐: ${item.skinNome} da ${item.skinArma}🔫\nMapaFavorito🗺: ${item.mapaFavorito}`,
+          remetente: "bot"
+        }
+      ])
+    }, 1000);
+    });
+  }
 
-  //Caso seja escolhido a opção 4, é necessário habilitar o campo de texto para o usuário informar os atributos de sugestão incluindo o email para entrar em contato caso seja necessário
+  //Caso seja escolhida a opção 4, é necessário habilitar o campo de texto para o usuário informar os atributos de sugestão incluindo o email para entrar em contato caso seja necessário
   const enviarTextoLivre = async () => {
     setMensagens(prev => [...prev, { texto: descricaoSugestao, remetente: 'usuario' }])
-    setCarregando(true);
+    
 
     //Pega os valores recebidos do html que agora estão nas variaveis de estado e constroi o objeto Sugestão a ser salvo
     const payload = {
@@ -155,7 +183,7 @@ export default function ChatForm() {
       descricao: descricaoSugestao,
       emailUsuario: emailUsuario
     }
-
+    setCarregando(true);
     //Com os valores recebidos envia a requisição para criar uma sugestão em POST /sugestoes do backend    
     const res = await fetch('http://localhost:8080/chat', {
       method: 'POST',
@@ -163,14 +191,17 @@ export default function ChatForm() {
       body: JSON.stringify(payload),
     })
     //Recebe a confirmação se foi salvo Sugestão no banco de dados
-    const text = await res.text()
+    const dados = await res.json()
+
+    
+
     //Retira tela de carregamento, altera estados dos atributos de sugestão e exibe mensagem no bot
     setTimeout(() => {
       setCarregando(false);
       setDescricaoSugestao('')
       setEmailUsuario('')
       setOpcaoSelecionada('')
-      setMensagens(prev => [...prev, { texto: text, remetente: 'bot' }]);
+      setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }]);
     }, 1500);
 
   }
@@ -185,7 +216,7 @@ export default function ChatForm() {
         {mensagens.map((msg, idx) => (
           <div key={idx} className={`flex ${msg.remetente === 'bot' ? 'justify-start' : 'justify-end'}`}>
             <div className={`text-black text-stro shadow-md/30 border-black p-4 rounded-2xl max-w-sm break-words whitespace-pre-wrap
-              ${msg.remetente === 'bot' ? 'bg-blue-800' : 'bg-yellow-200'}`}>
+              ${msg.remetente === 'bot' ? 'bg-blue-700' : 'bg-yellow-200'}`}>
               {msg.texto}
            </div>
           </div>
@@ -193,7 +224,7 @@ export default function ChatForm() {
         {/*Quando estiver buscando dados do backend exibe tela de carregamento*/}
         {carregando && (
           <div className="flex justify-start">
-            <div className="bg-blue-400 text-white px-4 py-2 rounded-2xl flex items-center space-x-1">
+            <div className="bg-blue-700 text-white px-4 py-2 rounded-2xl flex items-center space-x-1">
               <span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:0ms]"></span>
               <span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:200ms]"></span>
               <span className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:400ms]"></span>
@@ -227,16 +258,16 @@ export default function ChatForm() {
             onChange={(e) => setTipoSugestao(e.target.value)}
             className="w-full px-3 py-2 border border-gray-400 rounded"
           >
-            <option value="melhoria">Melhoria</option>
-            <option value="bug">Bug encontrado</option>
-            <option value="livre">Sugestão livre</option>
+            <option value="melhoria">Melhoria ⚙ </option>
+            <option value="bug">Bug encontrado 😬</option>
+            <option value="livre">Sugestão livre 😊</option>
           </select>
 
           <input
             type="email"
             value={emailUsuario}
             onChange={(e) => setEmailUsuario(e.target.value)}
-            placeholder="Seu e-mail"
+            placeholder="Seu e-mail, caso necessário entraremos em contato para discutir sua sugestão 😁"
             className="w-full mb-3 mt-3 px-3 py-2 border border-gray-400 rounded"
           />
           <input

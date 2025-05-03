@@ -33,4 +33,11 @@ body {
   background-image: url('/furia-wallpaper.png');
   background-size:cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-position: top;
+  }
 }
