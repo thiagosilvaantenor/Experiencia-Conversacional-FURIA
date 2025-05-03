@@ -4,7 +4,7 @@ import Opcao from "@/app/components/Opcao";
 
 export default function ChatForm() {
   const [mensagens, setMensagens] = useState([
-    { texto: 'Boas vindas ao Bot da Furia CS', remetente: 'bot' }
+    { texto: 'Boas vindas ao Bot da Furia CS', remetente: 'bot', link:null }
   ])
   //Variaveis com estado, para lidar com a opção selecionada, input de texto do usuário, menu da API do Chat e tempo de carregamento de dados do backend
   const [opcaoSelecionada, setOpcaoSelecionada] = useState('');
@@ -108,11 +108,13 @@ export default function ChatForm() {
       setTimeout(() => {
         setCarregando(false); 
         dados.emLive.forEach(jogador => {
+        const { link } = extrairTextoELink(jogador.twitch);
         setMensagens(prev => [
           ...prev,
           {
-            texto: `${jogador.jogador} está em live agora 🔥🔥 e esta jogando ${jogador.jogando}.\n Assista em: ${jogador.canal}`,
-            remetente: "bot",   
+            texto: `${jogador.jogador} está em live agora 🔥🔥 e esta jogando ${jogador.jogando}.\nAssista em`,
+            link: link,  
+            remetente: "bot",
           }
         ]);
       }, 1000);
@@ -128,10 +130,12 @@ export default function ChatForm() {
     setTimeout(() => {
       setCarregando(false); 
       dados.canais.forEach(canal => {
+        const { link } = extrairTextoELink(canal.twitch);
         setMensagens( prev => [
         ...prev, {
-          texto: `Siga ${canal.jogador} na Twitch:\n ${canal.twitch}`,
-          remetente: "bot"
+          texto: `Siga ${canal.jogador} na Twitch:`,
+          link: link,
+          remetente: "bot",
         }
       ]);
     }, 500);
@@ -142,15 +146,42 @@ export default function ChatForm() {
   const retornaRedesSociais = (dados) => {
       //Recebe o json(dados) e retorna as redes sociais dos jogadores
       dados.canais.forEach(canal => {
+        //Pra cada canal, eu vou extrair o link usando a função abaixo, e dela eu vou pegar apenas o link
+        //const { link } = extrairTextoELink(canal.twitch);
         setTimeout(() => {
           setCarregando(false); 
           setMensagens( prev => [
             ...prev, {
-              texto: `Jogador: ${canal.jogador}\nCanal da Twitch 🎮:\n${canal.twitch}\nCanal do Youtube ▶:\n${canal.youtube}\nInstagram 📸:\n${canal.instagram}`,
+              texto: `Jogador: ${canal.jogador}\nCanal da Twitch 🎮:`,
+              link: extrairTextoELink(canal.twitch).link,
               remetente: "bot"
             }
           ])
-        }, 1000);
+        }, 500);
+        setCarregando(true);
+        //const { link } = extrairTextoELink(canal.youtube);
+        setTimeout(() => {
+          setCarregando(false); 
+          setMensagens( prev => [
+            ...prev, {
+              texto: `Jogador: ${canal.jogador}\nCanal do Youtube ▶:`,
+              link: extrairTextoELink(canal.youtube).link,
+              remetente: "bot"
+            }
+          ])
+        }, 500);
+        setCarregando(true);
+        //const { instagram } = extrairTextoELink(canal.instagram);
+        setTimeout(() => {
+          setCarregando(false); 
+          setMensagens( prev => [
+            ...prev, {
+              texto: `Jogador: ${canal.jogador}\nInstagram 📸:`,
+              link: extrairTextoELink(canal.instagram).link,
+              remetente: "bot"
+            }
+          ])
+        }, 500);
       });
   }
 
@@ -205,6 +236,21 @@ export default function ChatForm() {
     }, 1500);
 
   }
+  //Função para lidar com links, vai buscar no texto do json recebido se tem um link, se tiver separa texto de link
+  function extrairTextoELink(texto) {
+    const regex = /(https?:\/\/[^\s]+)/;
+    const partes = texto.split(regex);
+  
+    if (partes.length > 1) {
+      return {
+        texto: partes[0].trim(),
+        link: partes[1].trim(),
+      };
+    }
+  
+    return { texto, link: null };
+  } 
+
   //HTML e CSS do componente Chat
   return (
     <div className="max-w-[55vw] max-h-[35vw] overflow-y-auto mx-auto mt-10 p-5 bg-white/50 rounded-[30px] shadow-xl/30">
@@ -213,14 +259,33 @@ export default function ChatForm() {
 
       {/*Mensagens*/}
       <div className="space-y-2 mb-4">
-        {mensagens.map((msg, idx) => (
-          <div key={idx} className={`flex ${msg.remetente === 'bot' ? 'justify-start' : 'justify-end'}`}>
+      
+        {mensagens.map((msg, i) => (
+        //Mapeia cada msg e verifica qual o remetente para adicionar as classes para identificar por cor e por alinhamento as msg do usuario e do bot
+          <div key={i} className={`flex ${msg.remetente === 'bot' ? 'justify-start' : 'justify-end'}`}>
             <div className={`text-black text-stro shadow-md/30 border-black p-4 rounded-2xl max-w-sm break-words whitespace-pre-wrap
               ${msg.remetente === 'bot' ? 'bg-blue-700' : 'bg-yellow-200'}`}>
-              {msg.texto}
-           </div>
+              
+              {msg.link ? (
+                <>
+                  <span>{msg.texto}</span>
+                  <br />
+                  <a
+                    href={msg.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline bg-blue-700/20 hover:bg-white/50"
+                  >
+                    {msg.link}
+                  </a>
+                </>
+              ) : (
+                msg.texto
+              )}
+            </div>
           </div>
         ))}
+
         {/*Quando estiver buscando dados do backend exibe tela de carregamento*/}
         {carregando && (
           <div className="flex justify-start">
