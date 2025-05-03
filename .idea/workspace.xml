@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ac5f80c-5b16-403d-ba56-cba08a113f42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/ChatBotFuriaCsApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/controller/ChatController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/controller/JogadorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/controller/SugestaoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/controller/TwitchAPIController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/Jogador.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/JogadorDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/JogadorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/JogadorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/mapa_favorito/MapaFavorito.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/mapa_favorito/MapaFavoritoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/mapa_favorito/MapaFavoritoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/redes_sociais/RedeSociaisRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/redes_sociais/RedesSociais.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/redes_sociais/RedesSociaisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/skin_favorita/SkinFavorita.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/skin_favorita/SkinFavoritaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/skin_favorita/SkinFavoritaService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/sugestao/Sugestao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/sugestao/SugestaoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/furia/ChatBotFuriaCS/model/sugestao/SugestaoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/eslint.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/next.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/postcss.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/public/furia-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/chat/ChatForm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/chat/Opcao.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/chat/page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/globals.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/layout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/frontend/chatbot-furia/src/app/page.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/furia/ChatBotFuriaCS/ChatBotFuriaCsApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2waVpmPYYJqyqeq0kdaMczr4ClL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ac5f80c-5b16-403d-ba56-cba08a113f42" name="Changes" comment="" />
+      <created>1746279858412</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746279858412</updated>
+      <workItem from="1746279861164" duration="227000" />
+      <workItem from="1746280452874" duration="356000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

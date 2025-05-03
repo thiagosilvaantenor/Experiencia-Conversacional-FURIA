@@ -58,7 +58,7 @@ export default function ChatFuria() {
   }
 
   return (
-      <div className="max-w-md mx-auto mt-10 p-5 bg-gray-300 rounded-[30px]">
+      <div className="max-w-md h-[600px] scroll-y-auto mx-auto mt-10 p-5 bg-gray-300 rounded-[30px]">
         <h2 className="text-center font-bold mb-4">CHAT FURIA CS</h2>
 
         {/*Mensagens*/}
