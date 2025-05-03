@@ -1,6 +1,9 @@
 'use client'
-import { useEffect, useState } from 'react'
-import Opcao from "@/app/components/Opcao";
+import { fetchMenu, postChat } from '@/app/lib/chat/consumoApi';
+import frasesTorcida from '@/app/lib/chat/frasesTorcida';
+import { handleOpcao1, handleOpcao2, handleOpcao3 } from '@/app/lib/chat/handlersOpcao';
+import { useEffect, useState } from 'react';
+import Opcao from '../Opcao';
 
 export default function ChatForm() {
   const [mensagens, setMensagens] = useState([
@@ -14,242 +17,65 @@ export default function ChatForm() {
   const [tipoSugestao, setTipoSugestao] = useState('melhoria');
   const [carregando, setCarregando] = useState(false);
 
-  // Lista para simulação de torcida:
-  const frasesTorcida = {
-    '1': [
-      "VAI ROLAR LIVE AGORA? 👀",
-      "QUEM TÁ ON? 🔴",
-      "TÔ COM A FÚRIA! 🔥",
-      "QUERO VER O ART APRONTANDO! 🧨"
-    ],
-    '2': [
-      "QUERO SEGUIR TODO MUNDO! 🔥",
-      "MANDA O INSTA DO GUERRI! 💬",
-      "QUEM TÁ FAZENDO DANCINHA NO TIKTOK? 😂"
-    ],
-    '3': [
-      "MIRAGE É NOSSA CASA! 🏠🔥",
-      "A SKIN DO KSCERATO É BRABA DEMAIS 😎",
-      "QUERO SABER QUEM CURTE DUST 2! 🏜"
-    ],
-    '4': [
-      "TÁ NA HORA DE MELHORAR ESSE BOT HEIN 😅",
-      "DEIXA EU MANDA IDEIAS AÍ GALERA! 💡",
-      "FAZ UM BOT QUE IMITA O BAD FALLEN! 😂"
-    ]
-  };
+  
   
   //Realiza a requisição GET(/chat) para o backend para exibir o menu com as opções disponiveis do backend
   useEffect(() => {
-    const fetchMenu = async () => {
-      const res = await fetch('http://localhost:8080/chat')
-      const data = await res.json()
-      setOpcoesMenu(data)
-    }
-    fetchMenu()
+    fetchMenu().then(setOpcoesMenu);
   }, [])
 
-  //Quando o usuário seleciona uma opção é acionada
   const enviarOpcao = async (valor) => {
-    //Pega a opção escolhida e exibe a mensagem como usuário com essa opção
-    setOpcaoSelecionada(valor);
+    setOpcaoSelecionada(valor)
 
-    //Sorteia a frase de torcida da lista de torcida simulada
     if (frasesTorcida[valor]) {
-      const frases = frasesTorcida[valor];
-      const aleatoria = frases[Math.floor(Math.random() * frases.length)];
-      setMensagens(prev => [...prev, { texto: aleatoria, remetente: 'torcida' }]);
-    }//Caso entre uma nova opção sem frase de torcida cadastrada, exibe apenas a opção e o valor dela 
-    else {
-      setMensagens(prev => [...prev, { texto: `Opção ${valor}`, remetente: 'usuario' }]);
+      const frases = frasesTorcida[valor]
+      const aleatoria = frases[Math.floor(Math.random() * frases.length)]
+      setMensagens(prev => [...prev, { texto: aleatoria, remetente: 'torcida' }])
+    } else {
+      setMensagens(prev => [...prev, { texto: `Opção ${valor}`, remetente: 'usuario' }])
     }
-    
-    //Altera o estado de carregando para exibir para o usuário
-    setCarregando(true);
 
-    
-
-    // Se for qualquer outra opção, cria o json para a requisição o valor da opção escolhida
+    setCarregando(true)
     const payload = { opcao: valor }
-    //Envia o json para POST /chat no backend
-    const res = await fetch('http://localhost:8080/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
-    //Recebe a resposta da requisição
-    const dados = await res.json();
-    
-   switch(valor){
-    case "1":
-      verificaLive(dados);
-      break;
-    case "2":
-      retornaRedesSociais(dados);
-      break;
-    case "3":
-      retornaSkinMapa(dados);
-      break;
-    case "4":
-      // Se for a opção 4, apenas mostra o input, sem enviar nada
-      return;
-    default:
-      // Para outras opções, simplesmente mostra a mensagem
-      setCarregando(false);
-      setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }]);
+    const dados = await postChat(payload)
+
+    switch (valor) {
+      case "1":
+        handleOpcao1(dados, setMensagens, setCarregando)
+        break
+      case "2":
+        handleOpcao2(dados, setMensagens, setCarregando)
+        break
+      case "3":
+        handleOpcao3(dados, setMensagens, setCarregando)
+        break
+      case "4":
+        return // apenas exibe input
+      default:
+        setCarregando(false)
+        setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }])
     }
-    
   }
 
-   //caso seja escolhida a opção 1
-  const verificaLive = (dados) => {
-    //Recebe o json(dados) e verifica se alguem está emLive
-    if (dados.emLive) {
-      setTimeout(() => {
-        setCarregando(false); 
-        dados.emLive.forEach(jogador => {
-        const { link } = extrairTextoELink(jogador.twitch);
-        setMensagens(prev => [
-          ...prev,
-          {
-            texto: `${jogador.jogador} está em live agora 🔥🔥 e esta jogando ${jogador.jogando}.\nAssista em`,
-            link: link,  
-            remetente: "bot",
-          }
-        ]);
-      }, 1000);
-      });
-    }//Caso ninguem estiver emLive, exibe que ninguem está em live e o canal da twitch dos jogadores
-    else{
-      setMensagens(prev => [
-        ...prev,
-        {
-          texto:dados.mensagem, remetente: "bot"
-        }
-    ]);
-    setTimeout(() => {
-      setCarregando(false); 
-      dados.canais.forEach(canal => {
-        const { link } = extrairTextoELink(canal.twitch);
-        setMensagens( prev => [
-        ...prev, {
-          texto: `Siga ${canal.jogador} na Twitch:`,
-          link: link,
-          remetente: "bot",
-        }
-      ]);
-    }, 500);
-    });
-  } 
-  }
- //Caso seja escolhida a opção 2
-  const retornaRedesSociais = (dados) => {
-      //Recebe o json(dados) e retorna as redes sociais dos jogadores
-      dados.canais.forEach(canal => {
-        //Pra cada canal, eu vou extrair o link usando a função abaixo, e dela eu vou pegar apenas o link
-        //const { link } = extrairTextoELink(canal.twitch);
-        setTimeout(() => {
-          setCarregando(false); 
-          setMensagens( prev => [
-            ...prev, {
-              texto: `Jogador: ${canal.jogador}\nCanal da Twitch 🎮:`,
-              link: extrairTextoELink(canal.twitch).link,
-              remetente: "bot"
-            }
-          ])
-        }, 500);
-        setCarregando(true);
-        //const { link } = extrairTextoELink(canal.youtube);
-        setTimeout(() => {
-          setCarregando(false); 
-          setMensagens( prev => [
-            ...prev, {
-              texto: `Jogador: ${canal.jogador}\nCanal do Youtube ▶:`,
-              link: extrairTextoELink(canal.youtube).link,
-              remetente: "bot"
-            }
-          ])
-        }, 500);
-        setCarregando(true);
-        //const { instagram } = extrairTextoELink(canal.instagram);
-        setTimeout(() => {
-          setCarregando(false); 
-          setMensagens( prev => [
-            ...prev, {
-              texto: `Jogador: ${canal.jogador}\nInstagram 📸:`,
-              link: extrairTextoELink(canal.instagram).link,
-              remetente: "bot"
-            }
-          ])
-        }, 500);
-      });
-  }
-
- //caso seja escolhida a opção 3
-  const retornaSkinMapa = (dados) => {
-    //Extrai do Json(dados) os dados de skin e Mapa favoritos de cada jogador
-    
-    dados.skins_mapas.forEach(item => {
-    setTimeout(() => {
-      setCarregando(false);
-      setMensagens( prev => [
-        ...prev, {
-          texto: `Jogador: ${item.jogador}\nSkinFavorita⭐: ${item.skinNome} da ${item.skinArma}🔫\nMapaFavorito🗺: ${item.mapaFavorito}`,
-          remetente: "bot"
-        }
-      ])
-    }, 1000);
-    });
-  }
-
-  //Caso seja escolhida a opção 4, é necessário habilitar o campo de texto para o usuário informar os atributos de sugestão incluindo o email para entrar em contato caso seja necessário
   const enviarTextoLivre = async () => {
     setMensagens(prev => [...prev, { texto: descricaoSugestao, remetente: 'usuario' }])
-    
-
-    //Pega os valores recebidos do html que agora estão nas variaveis de estado e constroi o objeto Sugestão a ser salvo
     const payload = {
       opcao: '4',
       tipo: tipoSugestao,
       descricao: descricaoSugestao,
-      emailUsuario: emailUsuario
+      emailUsuario
     }
-    setCarregando(true);
-    //Com os valores recebidos envia a requisição para criar uma sugestão em POST /sugestoes do backend    
-    const res = await fetch('http://localhost:8080/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    })
-    //Recebe a confirmação se foi salvo Sugestão no banco de dados
-    const dados = await res.json()
 
-    
-
-    //Retira tela de carregamento, altera estados dos atributos de sugestão e exibe mensagem no bot
+    setCarregando(true)
+    const dados = await postChat(payload)
     setTimeout(() => {
-      setCarregando(false);
+      setCarregando(false)
       setDescricaoSugestao('')
       setEmailUsuario('')
       setOpcaoSelecionada('')
-      setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }]);
-    }, 1500);
-
+      setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }])
+    }, 1500)
   }
-  //Função para lidar com links, vai buscar no texto do json recebido se tem um link, se tiver separa texto de link
-  function extrairTextoELink(texto) {
-    const regex = /(https?:\/\/[^\s]+)/;
-    const partes = texto.split(regex);
-  
-    if (partes.length > 1) {
-      return {
-        texto: partes[0].trim(),
-        link: partes[1].trim(),
-      };
-    }
-  
-    return { texto, link: null };
-  } 
 
   //HTML e CSS do componente Chat
   return (
