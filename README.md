@@ -71,3 +71,14 @@ BackEnd:
     `"nomeMapa": "nome do mapa favorito do jogador, ex: DUST 2",` <br>
     `"nomeSkin": "nome da skin favorita do jogador, ex: The Dark Knight",` <br>
     `"arma": "nome da arma que pertence a skin favorita do jogador, ex: SSG 08"` <br> `} `
+  - PUT (`/nickName`) Colocar no body os atributos que deseja atualizar do jogador, com a exceção do `nickname` pois é o primaryKey dele, exemplo: `{` <br>
+     `"nome": "nome novo"` <br>
+      `"nascimento": "nova data de nascimento do jogador, em YYYY-MM-DD ex: 1991-05-30",` <br>
+      `"twitch": "novo link do canal da twitch do jogador, ex: https://www.twitch.tv/gafallen",` <br>
+      `]`
+
+    FrontEnd:
+      - Interação com o chatbot em `localhost:3000/chat`, falta CSS e tratamento de dados da API
+  ![image](https://github.com/user-attachments/assets/90eed981-2e3f-4754-9db3-8625ce5e5ac7)
+
+
