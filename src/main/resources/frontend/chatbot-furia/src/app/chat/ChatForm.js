@@ -31,7 +31,9 @@ export default function ChatFuria() {
       body: JSON.stringify(payload),
     })
     const text = await res.text()
+
     setMensagens(prev => [...prev, { texto: text, remetente: 'bot' }])
+
   }
 
   const enviarTextoLivre = async () => {
@@ -71,7 +73,10 @@ export default function ChatFuria() {
           ))}
         </div>
 
-        {/*Opções*/}
+        {/*Opções
+        TODO: Corrigir bug quando é clicado em opção 4 é criado uma sugestão sem descrição
+        */}
+
         {opcaoSelecionada !== '4' && (
             <div className="flex flex-wrap gap-2 justify-center mb-4">
               {Object.entries(opcoesMenu).map(([key, value]) => (
