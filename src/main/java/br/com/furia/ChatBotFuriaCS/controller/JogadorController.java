@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,5 +78,40 @@ public class JogadorController {
                     buffer.getSkinFavorita().getNome(), buffer.getSkinFavorita().getArma()));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{nickName}")
+    public ResponseEntity<Jogador> atualizarJogador(@PathVariable String nickName, @RequestBody JogadorDTO dados) {
+        Optional<Jogador> jogador = service.buscarPeloId(nickName);
+        if(jogador.isPresent() && dados != null){
+            Jogador encontrado = jogador.get();
+            if(dados.nome() != null){
+                encontrado.setNome(dados.nome());
+            }
+            if(dados.nascimento() != null){
+                encontrado.setNascimento(dados.nascimento());
+            }
+            if(dados.twitch() != null){
+                encontrado.getRedesSociais().setTwitch(dados.twitch());
+            }
+            if(dados.instagram() != null){
+                encontrado.getRedesSociais().setInstagram(dados.instagram());
+            }
+            if(dados.youtube() != null){
+                encontrado.getRedesSociais().setYoutube(dados.youtube());
+            }
+            if(dados.nomeMapa() != null){
+                encontrado.getMapaFavorito().setNome(dados.nomeMapa());
+            }
+            if(dados.nomeSkin() != null){
+                encontrado.getSkinFavorita().setNome(dados.nomeSkin());
+            }
+            if(dados.arma() != null){
+                encontrado.getSkinFavorita().setArma(dados.arma());
+            }
+            Jogador atualizado = service.salvar(encontrado);
+            return ResponseEntity.ok(atualizado);
+        }
+        return ResponseEntity.badRequest().build();
     }
 }
