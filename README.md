@@ -18,6 +18,7 @@
 - Linguagens: Java em BackEnd, Javascript em FrontEnd
 - Banco de dados relacional: MySQL
 - ORM: Hibernate
+- Migrations: [Flyway](https://mvnrepository.com/artifact/org.flywaydb/flyway-core)
 - FrameWork e Dependências:
   - BackEnd em [Spring](https://spring.io/)
     - [Data JPA](https://spring.io/projects/spring-data-jpa)
