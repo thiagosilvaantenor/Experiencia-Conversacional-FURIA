@@ -1,3 +1,4 @@
+//Componente para escalamento de opções do menu, facilitando manutenção, recebe o nome da opção, valor a ser enviado ao backend, e função onClick do frontend
 export default function Opcao({nome, valor, funcao}){
     return(
         <button

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-
+//Redireciona de '/' para '/chat'
 export default function Page() {
   const router = useRouter();
 

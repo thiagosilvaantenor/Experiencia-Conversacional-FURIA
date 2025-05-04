@@ -4,27 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ac5f80c-5b16-403d-ba56-cba08a113f42" name="Changes" comment="feat: add application-example.properties e gerador de token da API da Twitch">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/data.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1__create_tables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V2__insert_redes_mapas_skins_jogadores.sql" afterDir="false" />
+    <list default="true" id="5ac5f80c-5b16-403d-ba56-cba08a113f42" name="Changes" comment="feat: add flyway para criação de tabelas e inserção de dados iniciais, JPA continua para lidar com mapeamento de classes e entidades">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/ChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/JogadorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/JogadorController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/SugestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/SugestaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/TwitchAPIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/controller/TwitchAPIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/JogadorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/repository/JogadorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/jogador/JogadorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/service/JogadorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/mapa_favorito/MapaFavoritoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/repository/MapaFavoritoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/mapa_favorito/MapaFavoritoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/service/MapaFavoritoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/redes_sociais/RedeSociaisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/repository/RedeSociaisRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/redes_sociais/RedesSociaisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/service/RedesSociaisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/skin_favorita/SkinFavoritaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/repository/SkinFavoritaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/skin_favorita/SkinFavoritaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/service/SkinFavoritaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/sugestao/SugestaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/repository/SugestaoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/model/sugestao/SugestaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/br/com/furia/ChatBotFuriaCS/service/SugestaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application-example.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application-example.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/components/Opcao/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/components/Opcao/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/lib/chat/consumoApi.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/lib/chat/consumoApi.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/lib/chat/handlersOpcao.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/lib/chat/handlersOpcao.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/chatbot-furia/src/app/page.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +99,7 @@
       <workItem from="1746279861164" duration="227000" />
       <workItem from="1746280452874" duration="356000" />
       <workItem from="1746311537520" duration="1522000" />
-      <workItem from="1746313090056" duration="10187000" />
+      <workItem from="1746313090056" duration="12273000" />
     </task>
     <task id="LOCAL-00001" summary="feat: add application-example.properties e gerador de token da API da Twitch">
       <option name="closed" value="true" />
@@ -123,7 +109,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746315232717</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add flyway para criação de tabelas e inserção de dados iniciais, JPA continua para lidar com mapeamento de classes e entidades">
+      <option name="closed" value="true" />
+      <created>1746324453150</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746324453150</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +125,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add application-example.properties e gerador de token da API da Twitch" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add application-example.properties e gerador de token da API da Twitch" />
+    <MESSAGE value="feat: add flyway para criação de tabelas e inserção de dados iniciais, JPA continua para lidar com mapeamento de classes e entidades" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add flyway para criação de tabelas e inserção de dados iniciais, JPA continua para lidar com mapeamento de classes e entidades" />
   </component>
 </project>
