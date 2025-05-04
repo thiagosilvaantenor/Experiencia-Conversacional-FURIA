@@ -7,7 +7,7 @@ import Opcao from '../Opcao';
 
 export default function ChatForm() {
   const [mensagens, setMensagens] = useState([
-    { texto: 'Boas vindas ao Bot da Furia CS', remetente: 'bot', link:null }
+    { texto: 'Boas vindas ao Bot FURIA Torcida CounterStrike', remetente: 'bot', link:null }
   ])
   //Variaveis com estado, para lidar com a opção selecionada, input de texto do usuário, menu da API do Chat e tempo de carregamento de dados do backend
   const [opcaoSelecionada, setOpcaoSelecionada] = useState('');
@@ -81,7 +81,7 @@ export default function ChatForm() {
   return (
     <div className="max-w-[55vw] max-h-[35vw] overflow-y-auto mx-auto mt-10 p-5 bg-white/50 rounded-[30px] shadow-xl/30">
 
-      <h2 className="text-center font-bold mb-4">CHAT FURIA CS</h2>
+      <h2 className="text-center font-bold mb-4">🔫🔫 CHAT TORCIDA FURIA CS 🔫🔫</h2>
 
       {/*Mensagens*/}
       <div className="space-y-2 mb-4">
