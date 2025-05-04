@@ -2,7 +2,7 @@ package br.com.furia.ChatBotFuriaCS.controller;
 
 import br.com.furia.ChatBotFuriaCS.model.jogador.Jogador;
 import br.com.furia.ChatBotFuriaCS.model.jogador.JogadorDTO;
-import br.com.furia.ChatBotFuriaCS.model.jogador.JogadorService;
+import br.com.furia.ChatBotFuriaCS.service.JogadorService;
 import br.com.furia.ChatBotFuriaCS.model.mapa_favorito.MapaFavorito;
 import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociais;
 import br.com.furia.ChatBotFuriaCS.model.skin_favorita.SkinFavorita;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

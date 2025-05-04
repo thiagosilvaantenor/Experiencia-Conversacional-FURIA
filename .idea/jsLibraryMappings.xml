@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <excludedPredefinedLibrary name="Experiencia-Conversacional-FURIA/backend/target/classes/frontend/chatbot-furia/node_modules" />
+  </component>
+</project>

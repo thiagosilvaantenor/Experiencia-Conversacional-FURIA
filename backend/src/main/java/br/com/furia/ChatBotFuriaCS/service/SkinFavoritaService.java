@@ -1,5 +1,7 @@
-package br.com.furia.ChatBotFuriaCS.model.skin_favorita;
+package br.com.furia.ChatBotFuriaCS.service;
 
+import br.com.furia.ChatBotFuriaCS.model.skin_favorita.SkinFavorita;
+import br.com.furia.ChatBotFuriaCS.repository.SkinFavoritaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

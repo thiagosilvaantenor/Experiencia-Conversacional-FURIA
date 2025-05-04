@@ -1,9 +1,9 @@
 package br.com.furia.ChatBotFuriaCS.controller;
 
 import br.com.furia.ChatBotFuriaCS.model.jogador.Jogador;
-import br.com.furia.ChatBotFuriaCS.model.jogador.JogadorService;
+import br.com.furia.ChatBotFuriaCS.service.JogadorService;
 import br.com.furia.ChatBotFuriaCS.model.sugestao.Sugestao;
-import br.com.furia.ChatBotFuriaCS.model.sugestao.SugestaoService;
+import br.com.furia.ChatBotFuriaCS.service.SugestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

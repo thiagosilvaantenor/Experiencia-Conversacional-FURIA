@@ -1,11 +1,9 @@
-package br.com.furia.ChatBotFuriaCS.model.jogador;
+package br.com.furia.ChatBotFuriaCS.service;
 
+import br.com.furia.ChatBotFuriaCS.model.jogador.Jogador;
 import br.com.furia.ChatBotFuriaCS.model.mapa_favorito.MapaFavorito;
-import br.com.furia.ChatBotFuriaCS.model.mapa_favorito.MapaFavoritoService;
-import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociais;
-import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociaisService;
 import br.com.furia.ChatBotFuriaCS.model.skin_favorita.SkinFavorita;
-import br.com.furia.ChatBotFuriaCS.model.skin_favorita.SkinFavoritaService;
+import br.com.furia.ChatBotFuriaCS.repository.JogadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

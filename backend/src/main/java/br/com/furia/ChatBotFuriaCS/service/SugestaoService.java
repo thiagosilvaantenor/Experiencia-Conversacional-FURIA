@@ -1,7 +1,8 @@
-package br.com.furia.ChatBotFuriaCS.model.sugestao;
+package br.com.furia.ChatBotFuriaCS.service;
 
+import br.com.furia.ChatBotFuriaCS.model.sugestao.Sugestao;
+import br.com.furia.ChatBotFuriaCS.repository.SugestaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

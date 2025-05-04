@@ -1,6 +1,7 @@
-package br.com.furia.ChatBotFuriaCS.model.mapa_favorito;
+package br.com.furia.ChatBotFuriaCS.service;
 
-import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociais;
+import br.com.furia.ChatBotFuriaCS.model.mapa_favorito.MapaFavorito;
+import br.com.furia.ChatBotFuriaCS.repository.MapaFavoritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

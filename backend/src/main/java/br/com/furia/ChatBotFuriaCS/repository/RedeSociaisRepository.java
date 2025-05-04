@@ -1,5 +1,6 @@
-package br.com.furia.ChatBotFuriaCS.model.redes_sociais;
+package br.com.furia.ChatBotFuriaCS.repository;
 
+import br.com.furia.ChatBotFuriaCS.model.redes_sociais.RedesSociais;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RedeSociaisRepository extends JpaRepository<RedesSociais, Integer> {

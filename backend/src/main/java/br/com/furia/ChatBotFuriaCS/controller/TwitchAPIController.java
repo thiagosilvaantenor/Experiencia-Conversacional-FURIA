@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TwitchAPIController {
-    //private final String TOKEN = "nw5csmi2mljxy77spfc8m7buif5wso";
-//    @Value("${twitch.client-id}")
+
     private String clientId = "";
 
-//    @Value("${twitch.client-secret}")
     private String clientSecret = "";
 
     private String token = "";
