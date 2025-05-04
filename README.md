@@ -61,7 +61,7 @@ Para utilizar a API da Twitch, você precisa gerar suas próprias credenciais. S
 3. Em Nome, coloque um nome unico qualquer, ex: `APIKEYCHATBOT{seuUsuariodaTwitch}`
 4. Em URLs de redirecionamento OAuth, coloque `http://localhost:8080/chat`
 5. Em categoria coloque `ChatBot`
-6. Em tipo de cliente coloque deixe como `Confidencial`
+6. Em tipo de cliente deixe como `Confidencial`
 7. Clique em `criar`
 8. Salve o `client_id` e `client_secret` gerados.
 
@@ -102,7 +102,7 @@ Por fim, você vai colocar `client_id` e `client_secret`, da API da Twich, nas l
     - Criação da database `chatfuriacs`
     - Criação das tabelas: `redes_sociais`, `mapa_favorito`, `skin_favorita`, `jogador` e `sugestao`
     - Inserção de dados dos jogadores atuais da Furia incluindo as redesSociais, mapas favoritos e skins favoritas
-  - Caso queira testar apenas o backend é possivel utilziar Postman ou Insominia
+  - Caso queira testar apenas o backend é possivel utiliziar Postman ou Insominia
 - FrontEnd:
   -  Com as dependências instaladas, basta usar `npm run dev`, dentro do diretório [`/frontend/chatbot-furia/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/frontend/chatbot-furia)
   -  Caso ocorra tudo certo o resultado no terminal será algo parecido com a imagem abaixo:
