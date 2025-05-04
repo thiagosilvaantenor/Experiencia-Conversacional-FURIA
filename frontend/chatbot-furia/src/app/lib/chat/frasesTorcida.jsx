@@ -4,11 +4,11 @@
       "VAI ROLAR LIVE AGORA? 👀",
       "QUEM TÁ ON? 🔴",
       "TÔ COM A FÚRIA! 🔥",
-      "QUERO VER O ART APRONTANDO! 🧨"
+      "QUERO VER O BADFALLEN APRONTANDO! 😎"
     ],
     '2': [
       "QUERO SEGUIR TODO MUNDO! 🔥",
-      "MANDA O INSTA DO GUERRI! 💬",
+      "MANDA O INSTA DO SIDDE! 💬",
       "QUEM TÁ FAZENDO DANCINHA NO TIKTOK? 😂"
     ],
     '3': [
