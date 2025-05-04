@@ -1,6 +1,7 @@
 # Experiência Conversacional FURIA
 
-`Desafio do processo seletivo de assistente de engenheiro de software da Furia, criar um ChatBot/ Interface Conversacional para interagir com os fans do time de CounterStrike da Furia`
+`Desafio do processo seletivo de assistente de engenheiro de software da Furia.`<br>`Proposta: Challenge #1 - Experiência Conversacional FURIA Nível: Normal Crie um chatbot ou interface conversacional para os fãs do time de CS da FURIA! Pode ser Telegram bot, web chat ou app. Dica: pense como fã. O que você gostaria de ver ali? `
+
 
 <div align="center">
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
