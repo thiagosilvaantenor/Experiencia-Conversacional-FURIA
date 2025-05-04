@@ -39,8 +39,13 @@
 Para utilizar a API da Twitch, você precisa gerar suas próprias credenciais. Siga os passos abaixo para criar uma conta de desenvolvedor e obter seu `client_id` e `client_secret`:
 
 1. Acesse [Twitch Developer Console](https://dev.twitch.tv/console/apps).
-2. Crie uma nova aplicação clicando em "Register Your Application".
-3. Salve o `client_id` e `client_secret` gerados.
+2. Crie uma nova aplicação clicando em "Register Your Application / Registre seu aplicativo".
+3. Em Nome, coloque um nome unico qualquer, ex: `APIKEYCHATBOT{seuUsuariodaTwitch}`
+4. Em URLs de redirecionamento OAuth, coloque `http://localhost:8080/chat`
+5. Em categoria coloque `ChatBot`
+6. Em tipo de cliente coloque deixe como `Confidencial`
+7. Clique em `criar`
+8. Salve o `client_id` e `client_secret` gerados.
 
 ### 2. **Configuração do Ambiente**
 Crie um arquivo `application.properties` em [`/src/main/resources/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/backend/src/main/resources). Você pode usar este arquivo: [`/src/main/resources/application-example.properties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/backend/src/main/resources/application-example.properties), ele já esta no mesmo diretório basta trocar o nome e substitua pelas suas credenciais da Twitch e demais informações:
