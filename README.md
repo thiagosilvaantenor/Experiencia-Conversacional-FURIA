@@ -31,27 +31,38 @@
   - [Twitch API](https://dev.twitch.tv/docs/api/)
  
 
-# Para Rodar:
-BackEnd:
-  Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven.
-  Vai ser necessário atualizar informações do [`/src/main/resources/application.propperties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/src/main/resources/application.properties)
-  
-  Para usuario e senha do banco de dados, nas linhas 4 e 5, foi utilizado de variaveis de ambiente com os valores de usuario(`DB_USER`) e senha(`DB_PASSWORD`) do banco, portanto será necessário criar essas variaveis: 
-  
-  ![image](https://github.com/user-attachments/assets/b8508388-c9ac-4f99-a195-b09aa476709a)
-  
-  Também vai ser necessário colocar o número da porta do MySQL na linha 3, troque o `3306` pela porta em que esta o seu MySQL, nessa mesma linha garante que a database `chatfuriacs` seja criada ao rodar o projeto
-  
-  ![image](https://github.com/user-attachments/assets/be0bb536-0e35-4edf-9148-0defdb757684)
-  
-  Pronto, pode rodar o projeto!<br>
-  Caso queira testar o backend utilize Postman ou Insomnia.
-FrontEnd:
-Após configurar o backend, para rodar será necessario ter o Node instalado, abra um terminal, que reconheça os comandos do node, no diretório [`main/resources/frontend/chatbot-furia`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/src/main/resources/frontend/chatbot-furia) e use os seguintes comandos:
+## 🚀 Como Rodar o Projeto Localmente
 
-- `npm install`
-- `npm run dev`
-No mesmo terminal será informado em qual porta o frontend está rodando, normalmente o NextJs roda em `http://localhost:3000`, para testar o chat bot acrescente o `/chat` após o número da porta, ex: `http://localhost:3000/chat`
+### 1. **Crie as credenciais da Twitch**
+Para utilizar a API da Twitch, você precisa gerar suas próprias credenciais. Siga os passos abaixo para criar uma conta de desenvolvedor e obter seu `client_id` e `client_secret`:
+
+1. Acesse [Twitch Developer Console](https://dev.twitch.tv/console/apps).
+2. Crie uma nova aplicação clicando em "Register Your Application".
+3. Salve o `client_id` e `client_secret` gerados.
+
+### 2. **Configuração do Ambiente**
+Crie um arquivo `application.properties` em [`/src/main/resources/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/backend/src/main/resources). Você pode usar este arquivo: [`/src/main/resources/application-example.properties`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/blob/main/backend/src/main/resources/application-example.properties), ele já esta no mesmo diretório basta trocar o nome e substitua pelas suas credenciais da Twitch e demais informações:
+Para usuario e senha do banco de dados, nas linhas 4 e 5, foi utilizado de variaveis de ambiente com os valores de usuario(`DB_USER`) e senha(`DB_PASSWORD`) do banco, portanto será necessário criar essas variaveis: 
+  
+![image](https://github.com/user-attachments/assets/b8508388-c9ac-4f99-a195-b09aa476709a)
+  
+Também vai ser necessário colocar o número da porta do MySQL na linha 3, troque o `3306` pela porta em que esta o seu MySQL, nessa mesma linha garante que a database `chatfuriacs` seja criada ao rodar o projeto
+  
+![image](https://github.com/user-attachments/assets/be0bb536-0e35-4edf-9148-0defdb757684)
+
+Por fim, você vai colocar `client_id` e `client_secret`, da API da Twich, nas linhas 12 e 13:
+
+![image](https://github.com/user-attachments/assets/3d54c341-2c8a-4a8d-b304-a43b5cc1e9ca)
+
+
+### 3. **Baixando depêndencias**
+- Backend:
+  - Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven, no terminal você vai entrar no diretorio: [`/backend/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/backend) usar o comando `mvn install`.
+- FrontEnd:
+  - Necessario ter o [Node](https://nodejs.org/pt) instalado, abra um terminal dentro do diretório [`/frontend/chatbot-furia/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/frontend/chatbot-furia) e use os seguintes comandos:
+    - `npm install`: instala as dependências e cria a pasta /node_modules
+    - `npm run dev`: com tudo instalado roda a aplicação, informando em qual porta o frontend está rodando, normalmente o NextJs roda em `http://localhost:3000`
+  - A rota do chatbot está em `/chat`, mas eu configurei para o `"/"` redirecionar para a rota do chat, um exemplo: `http://localhost:3000` vai redirecionar para `http://localhost:3000/chat`
  
 # Status
 🚧Em construção🚧
@@ -92,7 +103,8 @@ BackEnd:
       `]`
 
     FrontEnd:
-      - Interação com o chatbot em `localhost:3000/chat`, falta CSS e tratamento de dados da API
-  ![image](https://github.com/user-attachments/assets/90eed981-2e3f-4754-9db3-8625ce5e5ac7)
+      - Interação com o chatbot usando a API do backend e API da Twitch em `localhost:3000/chat`
+      ![image](https://github.com/user-attachments/assets/6ed0f75e-155c-4627-a63d-dcf3b2005bff)
+
 
 
