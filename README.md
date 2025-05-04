@@ -14,7 +14,25 @@
 
 </div>
 
-# Tecnologias 🛠
+## 📑 Sumário
+
+- [Experiência Conversacional FURIA](#experiência-conversacional-furia)
+- [Tecnologias 🛠](#tecnologias-)
+- [🚀 Como Rodar o Projeto Localmente](#-como-rodar-o-projeto-localmente)
+  - [1. Crie as credenciais da Twitch](#1-crie-as-credenciais-da-twitch)
+  - [2. Configuração do Ambiente](#2-configuração-do-ambiente)
+  - [3. Baixando dependências](#3-baixando-dependências)
+  - [4. Rodando pela primeira vez](#4-rodando-pela-primeira-vez)
+- [Preview](#-preview)
+  - [1. BackEnd](#1-backend)
+    - [1.1. Interação com o Chat em `/chat`](#11-interação-com-o-chat-em-chat)
+    - [1.2. Listagem de Sugestão em `/sugestoes`](#12-listagem-de-sugestão-em-sugestoes)
+    - [1.3. Cadastro e listagem de Jogador em `/jogador/`](#13-cadastro-e-listagem-de-jogador-em-jogador)
+  - [2. FrontEnd](#2-frontend)
+- [Autor](#autor)
+
+
+## Tecnologias 🛠
 - Linguagens: Java em BackEnd, Javascript em FrontEnd
 - Banco de dados relacional: MySQL
 - ORM: Hibernate
@@ -64,7 +82,7 @@ Por fim, você vai colocar `client_id` e `client_secret`, da API da Twich, nas l
 ![image](https://github.com/user-attachments/assets/3d54c341-2c8a-4a8d-b304-a43b5cc1e9ca)
 
 
-### 3. **Baixando depêndencias**
+### 3. **Baixando dependências**
 - Backend:
   - Com o projeto baixado, e o [Maven](https://maven.apache.org/) instalado, utilize a IDE de sua preferência, baixe as dependencias do projeto com o Maven, no terminal você vai entrar no diretorio: [`/backend/`](https://github.com/thiagosilvaantenor/Experiencia-Conversacional-FURIA/tree/main/backend) usar o comando `mvn install`.
 - FrontEnd:
@@ -98,7 +116,7 @@ Por fim, você vai colocar `client_id` e `client_secret`, da API da Twich, nas l
 
   -  Aqui é necessário o backend estar rodando também, se as opções, botões verdes, não aparecerem é por que o backend não esta rodando
 
-## Preview
+## 🔎 Preview
 ### 1. **BackEnd**:
 
 #### 1.1. **Interação com o Chat em `/chat`**
