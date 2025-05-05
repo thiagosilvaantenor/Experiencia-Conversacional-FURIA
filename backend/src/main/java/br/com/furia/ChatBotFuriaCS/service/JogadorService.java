@@ -26,8 +26,8 @@ public class JogadorService {
 
     //Metodo para salvar no banco de dados um jogador
     public Jogador salvar(Jogador jogador) {
-        //Se o jogador recebido for diferente de nullo
-        if (jogador != null) {
+        //Se o jogador recebido for diferente de null e não existir jogador com este nickName
+        if ((jogador != null) && repository.findById(jogador.getNickName()).isEmpty()) {
             //Se sim, verifica se ele tem um mapaFavorito, adiciona o jogador a lista do mapa e salva o mapa primeiro
             if (jogador.getMapaFavorito() != null) {
                 MapaFavorito mapa = null;
@@ -86,7 +86,7 @@ public class JogadorService {
             }
             return repository.save(jogador);
         }
-        //Se não, o jogador é nullo, então não é possivel salvar, retornar nullo
+        //Se não, o jogador é nulo ou nickName ja esta cadastrado, então não é possivel salvar, retornar nullo
         return null;
     }
     //Busca todos os jogadores e retorna tudo em lista
