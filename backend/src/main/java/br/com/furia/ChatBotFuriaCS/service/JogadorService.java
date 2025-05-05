@@ -39,7 +39,7 @@ public class JogadorService {
                     mapaService.salvar(mapa);
                 } else{
                     //Pega a referencia do mapa salvo com o id que esta no banco de dados, coloca esse mapa no jogador
-                    mapa = mapaService.buscaPeloNome(jogador.getMapaFavorito().getNome()).getFirst();
+                    mapa = mapaService.buscaPeloNome(jogador.getMapaFavorito().getNome()).get(0);
                     jogador.setMapaFavorito(mapa);
                 }
                 //adiciona jogador na lista de mapa
