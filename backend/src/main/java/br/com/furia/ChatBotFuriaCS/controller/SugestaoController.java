@@ -14,14 +14,17 @@ import java.util.Optional;
 @RequestMapping("/sugestoes")
 @CrossOrigin(origins = "*")
 public class SugestaoController {
+    //Spring vai instanciar a service
     @Autowired
     private SugestaoService service;
 
+    //Mapeamento get em /sugestões para listar todas as sugestões salvas
     @GetMapping
     public ResponseEntity<List<Sugestao>> listarTodas() {
         return ResponseEntity.ok(service.buscaTodas());
     }
 
+    //Mapeamento get em /sugestoes/id para listar uma sugestão especifica
     @GetMapping("/{id}")
     public ResponseEntity<Sugestao> buscarSugestao(@PathVariable Long id){
         Optional<Sugestao> encontrada = service.buscaPorId(id);
