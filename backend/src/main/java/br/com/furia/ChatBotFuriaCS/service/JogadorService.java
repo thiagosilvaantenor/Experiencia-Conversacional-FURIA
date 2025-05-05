@@ -59,7 +59,7 @@ public class JogadorService {
                 } else{
                     //Pega a referencia da skin salva com o id que esta no banco de dados, coloca essa skin no jogador
                     skin = skinService.buscaPeloNomeEArma(jogador.getSkinFavorita().getNome(),
-                            jogador.getSkinFavorita().getArma()).getFirst();
+                            jogador.getSkinFavorita().getArma()).get(0);
                     jogador.setSkinFavorita(skin);
                     //Não precisa salvar pois ja esta no banco
                 }
@@ -77,7 +77,7 @@ public class JogadorService {
                     redesService.salvar(jogador.getRedesSociais());
                 } else{
                     //Pega a referencia da rede salva com o id que esta no banco de dados, coloca essa rede no jogador
-                    redes = redesService.buscaPorTwitch(jogador.getRedesSociais().getTwitch()).getFirst();
+                    redes = redesService.buscaPorTwitch(jogador.getRedesSociais().getTwitch()).get(0);
                     jogador.setRedesSociais(redes);
                     //Não precisa salvar pois ja esta no banco
                 }
