@@ -43,7 +43,6 @@ CREATE TABLE sugestao (
 );
 
 -- Constraints de chave estrangeira
-ALTER TABLE jogador
-    ADD CONSTRAINT fk_jogador_redes FOREIGN KEY (redes_sociais_id) REFERENCES redes_sociais(redes_sociais_id),
-    ADD CONSTRAINT fk_jogador_mapa FOREIGN KEY (mapa_favorito_id) REFERENCES mapa_favorito(id),
-    ADD CONSTRAINT fk_jogador_skin FOREIGN KEY (skin_favorita_id) REFERENCES skin_favorita(id);
+ALTER TABLE jogador ADD CONSTRAINT fk_jogador_redes FOREIGN KEY (redes_sociais_id) REFERENCES redes_sociais(redes_sociais_id);
+ALTER TABLE jogador ADD CONSTRAINT fk_jogador_mapa FOREIGN KEY (mapa_favorito_id) REFERENCES mapa_favorito(id);
+ALTER TABLE jogador ADD CONSTRAINT fk_jogador_skin FOREIGN KEY (skin_favorita_id) REFERENCES skin_favorita(id);
