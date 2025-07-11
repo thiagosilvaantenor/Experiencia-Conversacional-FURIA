@@ -1,16 +1,27 @@
 # Experiência Conversacional FURIA
 
-`Desafio do processo seletivo de assistente de engenheiro de software da Furia.`<br>`Proposta: Challenge #1 - Experiência Conversacional FURIA Nível: Normal Crie um chatbot ou interface conversacional para os fãs do time de CS da FURIA! Pode ser Telegram bot, web chat ou app. Dica: pense como fã. O que você gostaria de ver ali? `
+`Uma experiência conversacional imersiva criada para a comunidade da FURIA Esports. Este projeto implementa um chatbot completo, desde a API RESTful em Spring Boot (Java) até um frontend reativo com React/Next.js, permitindo que os fãs se conectem com o time de uma forma única.`
+
+` Principais Funcionalidades:`
+
+- `Verificação de Status ao Vivo: Integração em tempo real com a API da Twitch para notificar quais jogadores estão em live.`
+
+- `Banco de Dados de Jogadores: Consulta de informações detalhadas, como redes sociais, mapas e skins favoritas, gerenciado com JPA e Flyway.`
+
+- `Sistema de Feedback: Permite que os fãs enviem sugestões diretamente através do chat, que são salvas e podem ser consultadas.`
 
 
 <div align="center">
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
   <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white" />
   <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
-  <img src="https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white" />
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <br />
  	<img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white" />
   <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/JUnit%205-25A162?style=for-the-badge&logo=junit5&logoColor=white" />
+  <img src="https://img.shields.io/badge/Mockito-42A5F5?style=for-the-badge&logo=mockito&logoColor=white" />
+  <img src="https://img.shields.io/badge/H2-464646?style=for-the-badge&logo=h2&logoColor=white" />
 
 </div>
 
@@ -23,6 +34,9 @@
   - [2. Configuração do Ambiente](#2-configuração-do-ambiente)
   - [3. Baixando dependências](#3-baixando-dependências)
   - [4. Rodando pela primeira vez](#4-rodando-pela-primeira-vez)
+- [🧪 Testes e Qualidade de Código](#-testes-e-qualidade-de-código)
+  - [Como Executar os Testes](#como-executar-os-testes)
+  - [Estratégia de Testes](#estratégia-de-testes)
 - [Preview](#-preview)
   - [1. BackEnd](#1-backend)
     - [1.1. Interação com o Chat em `/chat`](#11-interação-com-o-chat-em-chat)
@@ -115,6 +129,27 @@ Por fim, você vai colocar `client_id` e `client_secret`, da API da Twich, nas l
     ![image](https://github.com/user-attachments/assets/18e750c0-66fd-4c5b-8d66-f514258d181b)
 
   -  Aqui é necessário o backend estar rodando também, se as opções, botões verdes, não aparecerem é por que o backend não esta rodando
+
+
+## 🧪 Testes e Qualidade de Código
+
+Este projeto leva a qualidade de código a sério, utilizando uma suíte de testes automatizados para garantir a estabilidade, confiabilidade e corretude da lógica de negócio no backend. A estratégia de testes foi desenvolvida para cobrir as diferentes camadas da aplicação.
+
+### Como Executar os Testes
+
+Para rodar todos os testes unitários e de integração do backend, certifique-se de estar no diretório `/backend` e execute o seguinte comando Maven:
+
+`bash
+mvn test`
+
+Este comando irá compilar o código, baixar as dependências necessárias e executar todos os testes localizados em src/test/java. Os testes são executados em um ambiente controlado utilizando um banco de dados em memória (H2) para não impactar seu banco de dados de desenvolvimento.
+
+### Estratégia de Testes
+
+A aplicação adota uma abordagem de pirâmide de testes, focando em:
+- Testes de Unidade (Services): Focados em testar as regras de negócio nas classes de serviço (@Service). 
+  - As dependências externas, como Repositórios e outros Serviços, são simuladas (mocadas) com Mockito, garantindo que a lógica de cada método seja testada de forma rápida e isolada.
+
 
 ## 🔎 Preview
 ### 1. **BackEnd**:
