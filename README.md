@@ -149,6 +149,9 @@ Este comando irá compilar o código, baixar as dependências necessárias e exe
 A aplicação adota uma abordagem de pirâmide de testes, focando em:
 - Testes de Unidade (Services): Focados em testar as regras de negócio nas classes de serviço (@Service). 
   - As dependências externas, como Repositórios e outros Serviços, são simuladas (mocadas) com Mockito, garantindo que a lógica de cada método seja testada de forma rápida e isolada.
+    - Jogador:
+      - É testado se suas associações são criadas e salvas ao cadastrá-lo
+      - É testado se está sendo feito duplicadas de associações já salvas 
 
 
 ## 🔎 Preview
