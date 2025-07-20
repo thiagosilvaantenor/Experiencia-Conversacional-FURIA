@@ -4,7 +4,7 @@
 // const URL = "http://localhost:8080/chat"
 //////////////
 //Abaixo é pego a variavel de ambiente do vercel para pegar o URL da API do backend
-const URL = process.env.NEXT_PUBLIC_CHAT_API_URL
+const URL = process.env.NEXT_PUBLIC_CHAT_API_URL;
 export const fetchMenu = async () => {
   const res = await fetch(URL)
   if (!res.ok) {
