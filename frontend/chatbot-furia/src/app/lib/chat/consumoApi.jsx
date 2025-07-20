@@ -2,7 +2,7 @@
 //Caso esteja rodando localmente, descomente a linha abaixo
 // const URL = "http://localhost:8080/chat"
 //Abaixo é usado o URL do backend que esta rodando no KOYEB
-const URL = "https://single-dixie-thiagoantenor-ce6e3e58.koyeb.app/chat"
+const URL = CHAT_API_URL
 export const fetchMenu = async () => {
   const res = await fetch(URL)
   return res.json()
