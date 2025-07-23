@@ -50,7 +50,8 @@ export default function ChatForm() {
         handleOpcao3(dados, setMensagens, setCarregando)
         break
       case "4":
-        return // apenas exibe input
+        // apenas exibe input
+        return 
       default:
         setCarregando(false)
         setMensagens(prev => [...prev, { texto: dados.mensagem, remetente: 'bot' }])
@@ -79,7 +80,7 @@ export default function ChatForm() {
 
   //HTML e CSS do componente Chat
   return (
-    <div className="max-w-[55vw] max-h-[35vw] overflow-y-auto mx-auto mt-10 p-5 bg-white/50 rounded-[30px] shadow-xl/30">
+    <div className="md:max-w-[70vw] md:max-h-[50vw] overflow-y-auto mx-auto mt-10 p-5 bg-white/50 rounded-[30px] shadow-xl/30">
 
       <h2 className="text-center font-bold mb-4">🔫🔫 CHAT TORCIDA FURIA CS 🔫🔫</h2>
 
