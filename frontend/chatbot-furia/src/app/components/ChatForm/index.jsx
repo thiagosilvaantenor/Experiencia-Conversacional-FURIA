@@ -16,12 +16,24 @@ export default function ChatForm() {
   const [opcoesMenu, setOpcoesMenu] = useState({});
   const [tipoSugestao, setTipoSugestao] = useState('melhoria');
   const [carregando, setCarregando] = useState(false);
-
   
-  
+  //Função para buscar as opções do chat
+  async function buscaMenu() {
+      setCarregando(true)
+    try {
+      await fetchMenu().then(setOpcoesMenu);
+    }
+    catch (e) {
+      setMensagens(prev => [...prev, { texto: e.message, remetente: 'bot' }]);
+    }
+    finally {
+      setCarregando(false);
+    }
+      
+    }
   //Realiza a requisição GET(/chat) para o backend para exibir o menu com as opções disponiveis do backend
   useEffect(() => {
-    fetchMenu().then(setOpcoesMenu);
+    buscaMenu()   
   }, [])
 
   const enviarOpcao = async (valor) => {
@@ -37,7 +49,13 @@ export default function ChatForm() {
 
     setCarregando(true)
     const payload = { opcao: valor }
-    const dados = await postChat(payload)
+    let dados;
+    try {
+      dados = await postChat(payload)
+    } catch (e) {
+      setCarregando(false);
+      setMensagens(prev => [...prev, { texto: e.message, remetente: 'bot' }]);
+    }
 
     switch (valor) {
       case "1":
@@ -66,9 +84,14 @@ export default function ChatForm() {
       descricao: descricaoSugestao,
       emailUsuario
     }
-
+    
     setCarregando(true)
-    const dados = await postChat(payload)
+    let dados;
+    try {
+      dados = await postChat(payload)
+    } catch (e) {
+      setMensagens(prev => [...prev, { texto: e.message, remetente: 'bot' }]);
+    }
     setTimeout(() => {
       setCarregando(false)
       setDescricaoSugestao('')
@@ -78,42 +101,49 @@ export default function ChatForm() {
     }, 1500)
   }
 
+  const exibirMensagens = () => {
+      return mensagens.map((msg, i) => (
+        
+        //Mapeia cada msg e verifica qual o remetente para adicionar as classes para identificar por cor e por alinhamento as msg do usuario e do bot
+        <div key={i} className={`flex ${msg.remetente === 'bot' ? 'justify-start' : 'justify-end'}`}>
+          <div className={`text-black text-stro shadow-md/30 border-black p-4 rounded-2xl max-w-sm break-words whitespace-pre-wrap
+              ${msg.remetente === 'bot' ? 'bg-blue-700' : 'bg-yellow-200'}`}>
+              
+            {msg.link ? (
+              <>
+                <span>{msg.texto}</span>
+                <br />
+                <a
+                  href={msg.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline bg-blue-700/20 hover:bg-white/50"
+                >
+                  {msg.link}
+                </a>
+              </>
+            ) : (
+              msg.texto
+            )}
+          </div>
+        </div>
+      ))
+    }
+
+
   //HTML e CSS do componente Chat
   return (
     <div className="md:max-w-[70vw] md:max-h-[50vw] overflow-y-auto mx-auto mt-10 p-5 bg-white/50 rounded-[30px] shadow-xl/30">
 
       <h2 className="text-center font-bold mb-4">🔫🔫 CHAT TORCIDA FURIA CS 🔫🔫</h2>
-
+     
       {/*Mensagens*/}
       <div className="space-y-2 mb-4">
-      
-        {mensagens.map((msg, i) => (
-        //Mapeia cada msg e verifica qual o remetente para adicionar as classes para identificar por cor e por alinhamento as msg do usuario e do bot
-          <div key={i} className={`flex ${msg.remetente === 'bot' ? 'justify-start' : 'justify-end'}`}>
-            <div className={`text-black text-stro shadow-md/30 border-black p-4 rounded-2xl max-w-sm break-words whitespace-pre-wrap
-              ${msg.remetente === 'bot' ? 'bg-blue-700' : 'bg-yellow-200'}`}>
-              
-              {msg.link ? (
-                <>
-                  <span>{msg.texto}</span>
-                  <br />
-                  <a
-                    href={msg.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline bg-blue-700/20 hover:bg-white/50"
-                  >
-                    {msg.link}
-                  </a>
-                </>
-              ) : (
-                msg.texto
-              )}
-            </div>
-          </div>
-        ))}
 
-        {/*Quando estiver buscando dados do backend exibe tela de carregamento*/}
+        {exibirMensagens()}
+
+
+        {/*Quando estiver buscando dados do backend, carregando = true, exibe tela de carregamento*/}
         {carregando && (
           <div className="flex justify-start">
             <div className="bg-blue-700 text-white px-4 py-2 rounded-2xl flex items-center space-x-1">
@@ -123,6 +153,7 @@ export default function ChatForm() {
             </div>
           </div>
         )}
+
       </div>
 
       {/*Opções

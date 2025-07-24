@@ -3,14 +3,18 @@
 //Caso esteja rodando localmente o backend, tire o comentario da linha abaixo e comente a linha 7
 // const URL = "http://localhost:8080/chat"
 //Caso esteja rodando apenas o frotend localmente, tire o comentario da linha 6
-//const URL = "https://single-dixie-thiagoantenor-ce6e3e58.koyeb.app/chat"
+const URL = "https://single-dixie-thiagoantenor-ce6e3e58.koyeb.app/chat"
 //////////////
 //Abaixo é pego a variavel de ambiente do vercel para pegar o URL da API do backend
-const URL = process.env.NEXT_PUBLIC_CHAT_API_URL;
+
+
+//const URL = process.env.NEXT_PUBLIC_CHAT_API_URL;
 export const fetchMenu = async () => {
   const res = await fetch(URL)
+  //caso resposta seja diferente de OK/200
   if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+   console.error(`Codigo HTTP: ${res.status}`);
+   throw new Error(`Erro ao buscar opções do chat`);
   }
   return res.json()
 }
@@ -23,7 +27,8 @@ export const postChat = async (payload) => {
     body: JSON.stringify(payload),
   })
   if (!res.ok) {
-    throw new Error(`HTTP error! status: ${res.status}`);
+    console.error(`Codigo HTTP: ${res.status}`);
+    throw new Error(`Erro, não foi possivel escolher esta opção ${payload.opcao}`);
   }
   return res.json()
 }
