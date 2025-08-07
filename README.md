@@ -2,6 +2,8 @@
 
 `Uma experiência conversacional imersiva criada para a comunidade da FURIA Esports. Este projeto implementa um chatbot completo, desde a API RESTful em Spring Boot (Java) até um frontend reativo com React/Next.js, permitindo que os fãs se conectem com o time de uma forma única.`
 
+`Caso queira testar em seu navegador:` [Link do deploy com banco de dados em mémoria](https://frontend-experiencia-conversacional-furia.vercel.app/)
+
 ` Principais Funcionalidades:`
 
 - `Verificação de Status ao Vivo: Integração em tempo real com a API da Twitch para notificar quais jogadores estão em live.`
